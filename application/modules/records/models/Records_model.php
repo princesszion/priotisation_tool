@@ -9,58 +9,86 @@ class Records_model extends CI_Model
 		parent::__construct();
 		$this->load->database();
 	}
+	public function assign_disease_to_country($member_state_id, $disease_id) {
+        // Check if already assigned
+        $exists = $this->db->get_where('member_state_diseases', [
+            'member_state_id' => $member_state_id,
+            'disease_id' => $disease_id
+        ])->num_rows();
 
-	public function count_all_outbreak_events()
-	{
-		return $this->db->count_all('outbreak_events');
+        if ($exists == 0) {
+            $this->db->insert('member_state_diseases', [
+                'member_state_id' => $member_state_id,
+                'disease_id' => $disease_id
+            ]);
+        }
+    }
+	public function get_assigned_diseases($member_state_id) {
+		$this->db->select('diseases_and_conditions.name');
+		$this->db->join('diseases_and_conditions', 'member_state_diseases.disease_id = diseases_and_conditions.id');
+		$query = $this->db->get_where('member_state_diseases', ['member_state_id' => $member_state_id]);
+		return $query->result_array();
 	}
-
-	public function get_outbreak_events($limit, $start)
-	{
-		$this->db->order_by('priority', 'ASC');
-		$this->db->limit($limit, $start);
-		$query = $this->db->get('outbreak_events');
-		return $query->result();
+	public function unassign_disease_from_country($member_state_id, $disease_id) {
+		$this->db->delete('member_state_diseases', [
+			'member_state_id' => $member_state_id,
+			'disease_id' => $disease_id
+		]);
 	}
-
-	public function search_outbreak_events($term)
-	{
-		// Add wildcard search with '%' before and after the search term
-		$this->db->like('outbreak_name', $term, 'both');
-		$this->db->or_like('start_date', $term, 'both');
-		$this->db->or_like('end_date', $term, 'both');
-
-		// Order results by start date in descending order
-		$this->db->order_by('start_date', 'DESC');
-
-		// Fetch the results from the 'outbreak_events' table
-		$query = $this->db->get('outbreak_events');
-
-		return $query->result(); // Return the result set
+	public function get_all_parameters(){
+		return $this->db->get('parameters')->result_array();
 	}
+	
+	public function load_ranking_form() {
+    $country_id = $this->input->post('member_state_id');
+    $period = $this->input->post('period');
+    $thematic_area_id = $this->input->post('thematic_area_id'); // Add thematic area filter
 
+    // Fetch diseases based on country and thematic area
+    $data['diseases'] = $this->records_model->get_assigned_diseases_with_area($country_id, $thematic_area_id);
+    $data['parameters'] = $this->records_model->get_all_parameters();
 
-	public function get_outbreak_event($id)
-	{
-		$query = $this->db->get_where('outbreak_events', ['id' => $id]);
-		return $query->row();
-	}
+    // Load the view with filtered data
+    $this->load->view('ranking_table', $data);
+}
 
-	public function create_outbreak_event($data)
-	{
-		$this->db->insert('outbreak_events', $data);
-		return $this->db->insert_id();
-	}
+public function get_assigned_diseases_with_area($member_state_id, $thematic_area_id = null) {
+    $this->db->select('d.id, d.name, ta.name as thematic_area')
+             ->from('member_state_diseases msd')
+             ->join('diseases_and_conditions d', 'd.id = msd.disease_id')
+             ->join('disease_thematic_areas ta', 'ta.id = d.thematic_area_id')
+             ->where('msd.member_state_id', $member_state_id);
 
-	public function update_outbreak_event($id, $data)
-	{
-		$this->db->where('id', $id);
-		return $this->db->update('outbreak_events', $data);
-	}
+    // Add thematic area filter only if a specific thematic area is selected
+    if (!empty($thematic_area_id)) {
+        $this->db->where('d.thematic_area_id', $thematic_area_id);
+    }
 
-	public function delete_outbreak_event($id)
-	{
-		$this->db->where('id', $id);
-		return $this->db->delete('outbreak_events');
-	}
+    return $this->db->get()->result_array();
+}
+	
+  // Get existing data for a specific member_state_id, period, and disease_id
+  public function get_member_state_disease_data($member_state_id, $period, $disease_id) {
+	return $this->db->get_where('member_state_diseases_data', [
+		'member_state_id' => $member_state_id,
+		'period' => $period,
+		'disease_id' => $disease_id
+	])->row_array();
+}
+
+// Insert new data into the member_state_diseases_data table
+public function insert_member_state_disease_data($data) {
+	return $this->db->insert('member_state_diseases_data', $data);
+}
+
+// Update existing data in the member_state_diseases_data table
+public function update_member_state_disease_data($id, $data) {
+	$this->db->where('id', $id);
+	return $this->db->update('member_state_diseases_data', $data);
+}
+	
+	
+	
+
+	
 }

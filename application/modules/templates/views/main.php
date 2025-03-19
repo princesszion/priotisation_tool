@@ -22,7 +22,7 @@ require_once('includes/preloader.php');
 				<div class="header-title">
 					<div class="mb-0 mb-lg-0 mb-xl-0">
 						<h4 class="mb-2">Dashboard</h4>
-						<div class="main-content-breadcrumb"> <span>Dashboard</span> <span><?php echo $title ?></span> <span><?php $id = $this->session->userdata('outbreak_id');  echo get_outbreak($id)->outbreak_name; ?></span> </div>
+						<div class="main-content-breadcrumb"> <span>Dashboard</span> <span><?php echo $title ?></span> <span></span> </div>
 					</div>
 				</div>
 

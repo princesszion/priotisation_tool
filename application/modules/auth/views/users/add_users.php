@@ -61,16 +61,16 @@ $usergroups = $this->db->get('user_groups')->result();
           <div class="col-sm-4">
             <!-- textarea -->
             <div class="form-group">
-              <label>Outbreak</label>
+              <label>Member State</label>
             
          
-              <select name="outbreak_id" style="width:100%;" class="role form-control select2" required>
+              <select name="memberstate_id" style="width:100%;" class="role form-control select2" required>
                 <option value="" disabled selected>Select Outbreak</option>
                 <?php 
-                $rows = $this->db->get('outbreak_events')->result();
+                $rows = $this->db->get('member_states')->result();
                 foreach ($rows as $row) :
                 ?>
-                  <option value="<?php echo $row->id; ?>"><?php echo $row->outbreak_name; ?>
+                  <option value="<?php echo $row->id; ?>"><?php echo $row->member_state; ?>
 
                   </option>
                 <?php endforeach; ?>
@@ -147,8 +147,6 @@ $usergroups = $this->db->get('user_groups')->result();
               <th>Name</th>
               <th>Username</th>
               <th>User Group</th>
-              <!-- <th>RCC</th> -->
-              <th>Outbreaks</th>
               <th>Actions</th>
 
 
@@ -166,7 +164,7 @@ $usergroups = $this->db->get('user_groups')->result();
                 <td><?php echo $user->name; ?></td>
                 <td><?php echo $user->username; ?></td>
                 <td><?php echo $user->group_name; ?></td>
-                <td><?php $id = $user->outbreak_id; echo get_outbreak($id)->outbreak_name;?></td>
+               
                 <td><a data-toggle="modal" data-target="#user<?php echo $user->id; ?>" href="#">Edit</a>
 
                   <?php if ($user->status == 1) { ?>

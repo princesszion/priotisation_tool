@@ -1,16 +1,120 @@
-<div class="container">
- 
+<div class="container mt-4">
+    <h3 class="mb-4">Assign Diseases to Countries</h3>
 
-
-  <!-- Outbreak Events Cards -->
-  <div class="row" id="outbreak-events">
-    Dashboard
-  </div>
-
-  <!-- Pagination -->
-  <div class="row mt-4">
-    <div class="col-md-12">
-      <?= $this->pagination->create_links() ?>
+    <!-- Country Selection -->
+    <div class="form-group">
+        <label for="member_state">Select Country:</label>
+        <?php if ($this->session->userdata('role') == '10'): ?>
+            <select id="member_state" class="form-control">
+                <?php foreach ($countries as $country): ?>
+                    <option value="<?= $country['id'] ?>"><?= $country['member_state'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        <?php else: ?>
+            <input type="text" class="form-control" value="<?= $this->session->userdata('memberstate_id') ?>" readonly>
+        <?php endif; ?>
     </div>
-  </div>
-</div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Select Thematic Areas:</label>
+                <div class="form-check">
+                    <input type="checkbox" id="select_all_thematic" class="form-check-input">
+                    <label class="form-check-label" for="select_all_thematic">Select All</label>
+                </div>
+                <?php foreach ($thematic_areas as $area): ?>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input thematic-checkbox" value="<?= $area['id'] ?>">
+                        <label class="form-check-label"> <?= $area['name'] ?> </label>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <button class="btn btn-success mb-2" id="assign-btn">Assign Diseases</button>
+            <button class="btn btn-info mb-2" id="show-summary-btn">View Assigned Diseases</button>
+            <?php if ($this->session->userdata('role') == '10'): ?>
+                <button class="btn btn-danger mb-2" id="unassign-btn">Unassign Diseases</button>
+            <?php endif; ?>
+
+            <div class="form-group">
+                <label>Select Diseases:</label>
+                <div class="form-check">
+                    <input type="checkbox" id="select_all_diseases" class="form-check-input">
+                    <label class="form-check-label" for="select_all_diseases">Select All</label>
+                </div>
+                <input type="text" id="disease-search" class="form-control mb-3" placeholder="Search diseases...">
+                <div id="disease-list-container">
+                    <div id="disease-list" class="disease-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+$(document).ready(function() {
+    let showCheckboxes = false; // Default state: without checkboxes
+
+    function show_notification(message, msgtype) {
+        Lobibox.notify(msgtype, {
+            pauseDelayOnHover: true,
+            position: 'top right',
+            icon: 'bx bx-check-circle',
+            msg: message
+        });
+    }
+
+    function loadDiseases() {
+        let thematicIds = $('.thematic-checkbox:checked').map(function() { return $(this).val(); }).get();
+        if(thematicIds.length > 0) {
+            $.post('<?= base_url() ?>lists/get_diseases_by_theme', { thematic_ids: thematicIds }, function(response) {
+                renderDiseases(JSON.parse(response), true);
+            });
+        } else { $('#disease-list').html(''); }
+    }
+
+    function renderDiseases(diseases, showCheckboxes = true) {
+        $('#disease-list').html(diseases.map(d => `
+            <div class="form-check">
+                ${showCheckboxes ? `<input type="checkbox" class="form-check-input disease-checkbox" id="disease_${d.id}" value="${d.id}">` : ''}
+                <label class="form-check-label" for="disease_${d.id}">${d.name}</label>
+            </div>`
+        ));
+    }
+
+    $('#select_all_thematic').change(function() {
+        $('.thematic-checkbox').prop('checked', this.checked);
+        loadDiseases();
+    });
+
+    $('.thematic-checkbox').change(loadDiseases);
+
+    $('#assign-btn, #unassign-btn').click(function() {
+        let url = $(this).attr('id') === 'assign-btn' ? 'assign_diseases' : 'unassign_diseases';
+        let data = { member_state_id: $('#member_state').val(), diseases: $('.disease-checkbox:checked').map(function(){return $(this).val();}).get() };
+        $.post(`<?= base_url()?>records/${url}`, data, function(response) {
+            let res = JSON.parse(response);
+            show_notification(res.message, res.status ? 'success' : 'error');
+        });
+    });
+
+    $('#show-summary-btn').click(function() {
+        showCheckboxes = !showCheckboxes; // Toggle the state
+        $(this).text(showCheckboxes ? 'View Assigned Diseases(+-)' : 'View Assigned Diseases');
+        $.post('<?= base_url()?>records/get_assigned_diseases', { member_state_id: $('#member_state').val() }, function(diseases) {
+            renderDiseases(diseases, showCheckboxes);
+        },'json');
+    });
+
+    $('#select_all_diseases').change(function() {
+        $('.disease-checkbox').prop('checked', this.checked);
+    });
+
+    $('#disease-search').keyup(function() {
+        let val = $(this).val().toLowerCase();
+        $('.form-check').filter(function() { $(this).toggle($(this).text().toLowerCase().includes(val)); });
+    });
+});
+</script>

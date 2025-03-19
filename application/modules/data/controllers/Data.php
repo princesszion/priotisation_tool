@@ -93,11 +93,30 @@ class Data extends MX_Controller
 			} elseif ($field_name == 'member_state'||$field_name=='member_state_id') {
 				// Fetch distinct values for the 'member_state' field
 				$distinct_query = $this->db->query("SELECT DISTINCT member_state FROM `member_states` ORDER BY $field_name ASC");
+				
 				$distinct_values = $distinct_query->result_array();
 	
 				$input_type = 'select';
 				$enum_values = array_column($distinct_values, $field_name);
+			} 
+
+			elseif ($field_name == 'thematic_area' || $field_name == 'thematic_area_id') {
+				// Fetch distinct values from 'disease_thematic_areas' table
+				$distinct_query = $this->db->query("SELECT DISTINCT id, name FROM `disease_thematic_areas` ORDER BY name ASC");
+				$distinct_values = $distinct_query->result_array();
+			
+				$input_type = 'select';
+			
+				// Ensure both 'id' and 'name' columns exist in the result
+				if (!empty($distinct_values) && isset($distinct_values[0]['id']) && isset($distinct_values[0]['name'])) {
+					// Use 'id' as the value and 'name' as the display text
+					$enum_values = array_column($distinct_values, 'name', 'id');
+				} else {
+					// Fallback: If only one column is provided, use it as both key and value
+					$enum_values = array_column($distinct_values, $field_name, $field_name);
+				}
 			}
+			
 			elseif ($field_name == 'outbreak_id') {
 				// Fetch distinct values for the 'member_state' field
 				$outbreak_id = $this->session->userdata('outbreak_id');
@@ -171,22 +190,27 @@ class Data extends MX_Controller
 			// Generate input field
 			if ($input_type == 'textarea') {
 				$form_html .= '<textarea class="form-control" name="' . $field_name . '" id="' . $field_name . '">' . $old_value . '</textarea>';
-			} elseif ($input_type == 'select') {
-			$form_html .= '<select class="form-control" name="' . $field_name . '" id="' . $field_name . '" ' . @$readonly . '>';
-			foreach ($enum_values as $value) {
-				$selected = ($old_value == $value) ? 'selected' : '';
-				if($field_name==='outbreak_id'){
-				$id = $this->session->userdata('outbreak_id');
-				$form_html .= '<option value="' . $value . '" ' . $selected . '>' . get_outbreak($id)->outbreak_name . '</option>';
+			} 
+			// Generate select input field
+				elseif ($input_type == 'select') {
+					$form_html .= '<select class="form-control" name="' . $field_name . '" id="' . $field_name . '" ' . @$readonly . '>';
+					
+					foreach ($enum_values as $id => $name) {
+						$selected = ($old_value == $id) ? 'selected' : '';
+						
+						if ($field_name === 'outbreak_id') {
+							$id = $this->session->userdata('outbreak_id');
+							$form_html .= '<option value="' . $id . '" ' . $selected . '>' . get_outbreak($id)->outbreak_name . '</option>';
+						} else {
+							$form_html .= '<option value="' . $id . '" ' . $selected . '>' . ucfirst($name) . '</option>';
+						}
+					}
+					
+					$form_html .= '</select>';
 				}
-				else{
-				$form_html .= '<option value="' . $value . '" ' . $selected . '>' . ucfirst($value) . '</option>';
 
-				}
-			}
-			$form_html .= '</select>';
 
-			} else {
+			 else {
 				$form_html .= '<input type="' . $input_type . '" class="form-control" name="' . $field_name . '" id="' . $field_name . '" value="' . $old_value . '">';
 			}
 	
@@ -241,7 +265,7 @@ public function generate_editable_table($table, $rows)
 
         }
     }
-    $table_html .= '<th>Actions</th>';
+    // $table_html .= '<th>Actions</th>';
     $table_html .= '</tr></thead>';
     $table_html .= '<tbody>';
 
@@ -272,14 +296,14 @@ public function generate_editable_table($table, $rows)
         
         // Add action button with color based on is_verified
 		$id=$row['id'];
-        $is_verified = is_verified($table,$id);
+        // $is_verified = 0;
 		
-        $button_color = $is_verified ? 'btn-success' : 'btn-danger';
-        $table_html .= '<td>';
-        $table_html .= '<button class="btn ' . $button_color . ' btn-sm verify-button" data-id="' . $row['id'] . '" data-table="' . $table . '">';
-        $table_html .= $is_verified ? 'Verified' : 'Verify';
-        $table_html .= '</button>';
-        $table_html .= '</td>';
+        // $button_color = $is_verified ? 'btn-success' : 'btn-danger';
+        // $table_html .= '<td>';
+        // $table_html .= '<button class="btn ' . $button_color . ' btn-sm verify-button" data-id="' . $row['id'] . '" data-table="' . $table . '">';
+        // $table_html .= $is_verified ? 'Verified' : 'Verify';
+        // $table_html .= '</button>';
+        // $table_html .= '</td>';
         $table_html .= '</tr>';
     }
 

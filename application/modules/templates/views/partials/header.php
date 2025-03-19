@@ -20,17 +20,17 @@
 				</div>
 				<div class="col-lg-5 col-md-5 text-center ">
 					<a href="<?php echo base_url() ?>">
-					<h3 style="color:black !important; font-weight:bold; margin-bottom: 7px;" class="notranslate">
-						Africa CDC Priotisation Tool
-						<h3 class="slogan fw-bold" style="font-size: 14px; margin-bottom: 7px; margin-left: 20px;">
-							<?= @$memberstate ?> 
-						</h3>
-						</a>
-					
+						<h3 style="color:black !important; font-weight:bold; margin-bottom: 7px;" class="notranslate">
+							Africa CDC Priotisation Tool
+							<h3 class="slogan fw-bold" style="font-size: 14px; margin-bottom: 7px; margin-left: 20px;">
+								<?= @$memberstate ?>
+							</h3>
+					</a>
+
 				</div>
 				<div class="col-lg-4 col-md-4 text-end d-none d-md-block justify-content-end">
 					<div id="google_translate_element" style="display: none;"></div>
-					
+
 					<div class="menu-language-menu-container">
 
 						<ul id="menu-language-menu" class="language-menu">
@@ -100,51 +100,69 @@
 
 				<ul class="nav-menu mt-1">
 
-					<?php
-					if (!empty($menus)) {
-						//@print_r($menus);
-						foreach ($menus as $menu): ?>
-							<li class="nav-item" role="presentation">
-								<a class="nav-link <?= ($this->uri->segment(4) == $menu->id) ? 'active' : '' ?>"
-									id="<?= $menu->tab ?>-tab"
-									href="<?= base_url() ?>records/dashboard/<?= $this->uri->segment(3) ?>/<?= $menu->id ?>"
-									aria-selected="<?= ($this->uri->segment(1) == $menu->tab) ? 'true' : 'false' ?>">
-									<i class="fa <?= $menu->icon ?>"></i> <?= $menu->title ?>
-								</a>
-							</li>
-						<?php endforeach;
-					} ?>
-						<li class="mobile-language-menu-container" style="margin:3px; display:none ;">
-							<select id="mobile-language-menu-container" class="form-control mobile-language-menu-container"
-								onchange="handleLanguageChange(this)" style="border-radius:4px; display:none ;">
-								<option value="" disabled selected>Select Language</option>
-								<option value="en">English</option>
-								<option value="fr">French</option>
-								<option value="ar">Arabic</option>
-								<option value="es">Spanish</option>
-								<option value="pt">Portuguese</option>
-								<option value="sw">Swahili</option>
-							</select>
+
+
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="" href="<?= base_url() ?>records" ><i
+								class="fa fa-tachometer"></i>Dashboard
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="" href="<?= base_url() ?>records/profile" ><i
+								class="fa fa-virus"></i>Disease / Condition Profile
+						</a>
+					</li>
+
+					<li class="mobile-language-menu-container" style="margin:3px; display:none ;">
+						<select id="mobile-language-menu-container" class="form-control mobile-language-menu-container"
+							onchange="handleLanguageChange(this)" style="border-radius:4px; display:none ;">
+							<option value="" disabled selected>Select Language</option>
+							<option value="en">English</option>
+							<option value="fr">French</option>
+							<option value="ar">Arabic</option>
+							<option value="es">Spanish</option>
+							<option value="pt">Portuguese</option>
+							<option value="sw">Swahili</option>
+						</select>
+					</li>
+
+					<?php if (empty($this->session->userdata('id'))): ?>
+
+						<li class="nav-item" style="float:right; margin-right:2px; border: 1px #f5f2f242 solid !important;">
+							<a href="#" class="nav-link" data-toggle="modal" data-target="#login"
+								class="ft-medium text-bold mb-10">
+								<i class="fa fa-user-alt"></i> Sign In
+							</a>
 						</li>
 
-						<?php if (empty($this->session->userdata('user_id'))): ?>
+					<?php else: ?>
 
-
-							<li class="nav-item" style="float:right; margin-right:2px; border: 1px #f5f2f242 solid !important;">
-								<a href="#" class="nav-link" data-toggle="modal" data-target="#login" class="ft-medium text-bold mb-10">
-									<i class="fa fa-user-alt"></i>Sign In
+						<li class="nav-item dropdown"
+							style="float:right; margin-right:2px; border: 1px #f5f2f242 solid !important;">
+							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-user"></i> <?php echo $this->session->userdata('name'); ?>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+								<a class="dropdown-item" href="<?php echo base_url('auth/profile'); ?>">
+									<i class="fa fa-user-circle"></i> Profile
 								</a>
-							</li>
-
-						<?php else: ?>
-
-							<li class="nav-item" style="float:right; margin-right:2px; border: 1px #f5f2f242 solid !important;">
-								<a class="nav-link" href="<?php echo base_url('account/logout'); ?>" class="ft-medium"><i class="fa fa-arrow-alt-circle-right"></i>
-									Logout
+								<div class="dropdown-divider"></div>
+								
+							<?php 	if($this->session->userdata('role')=="10") {?>
+								<a class="dropdown-item" href="<?php echo base_url('dashboard/home'); ?>">
+									<i class="fa fa-th"></i> Manage Data
 								</a>
-							</li>
-						<?php endif; ?>
-					
+							<?php } ?>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="<?php echo base_url('account/logout'); ?>">
+									<i class="fa fa-sign-out-alt"></i> Logout
+								</a>
+							</div>
+						</li>
+
+					<?php endif; ?>
+
 
 
 

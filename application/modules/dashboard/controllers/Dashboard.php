@@ -13,11 +13,14 @@ class Dashboard extends MX_Controller
 		$this->load->model("dashboard_mdl", 'dash_mdl');
 	}
 
-	public function index()
+	public function home()
 	{
+		$data['module'] = $this->dashmodule;
+		$data['title'] = 'Dashboard';
+		$data['uptitle'] = "Dashboard";
 
-
+		//dd($data);
 		render('home', $data);
-	}
 
+}
 }

@@ -4,19 +4,23 @@
 		<div class="main-header-left ">
 			<a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a><!-- sidebar-toggle-->
 			<a class="header-brand" href="#">
-				<img src="<?php echo base_url() ?>assets/images/logo.png" id="change-image" style="filter: brightness(0) invert(1);" width=200>
+				<img src="<?php echo base_url() ?>assets/images/logo.png" id="change-image"
+					style="filter: brightness(0) invert(1);" width=200>
 			</a>
 		</div>
 		<div class="main-header-center">
 			<div class="responsive-logo">
-				<img src="<?php echo base_url() ?>assets/images/logo.png" id="change-image" style="filter: brightness(0) invert(1);" width=200px>
+				<img src="<?php echo base_url() ?>assets/images/logo.png" id="change-image"
+					style="filter: brightness(0) invert(1);" width=200px>
 			</div>
 		</div>
 		<div class="main-header-right">
 			<div id="input-search" class="input-search header-search nav-item my-auto">
 				<form class="d-flex">
 					<input class="search-input form-control" placeholder="Search for anything..." type="search">
-					<span class="search-icon"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<span class="search-icon"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" width="24"
+							height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+							stroke-linecap="round" stroke-linejoin="round">
 							<circle cx="11" cy="11" r="8"></circle>
 							<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
 						</svg></span>
@@ -24,11 +28,19 @@
 			</div><!-- search closed -->
 			<div class="dropdown main-header-message right-toggle">
 				<div class="nav-item full-screen fullscreen-button">
-					<a class="new nav-link full-screen-link menu-icons fullscreen" href="#"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+					<a class="new nav-link full-screen-link menu-icons fullscreen" href="#"><svg class="svg-icon"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path
+								d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+							</path>
 						</svg></a>
-					<a class="new nav-link full-screen-link exit-fullscreen" href="#"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+					<a class="new nav-link full-screen-link exit-fullscreen" href="#"><svg class="svg-icon"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path
+								d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3">
+							</path>
 						</svg></a>
 				</div>
 			</div><!-- Full-screen closed -->
@@ -170,21 +182,32 @@
 					</div>
 				</div>
 			</div> -->
-			
+
 			<div class="dropdown nav-item main-header-notification">
-			<a class="profile-user mb-1" href="" style="background:#FFF; border-radius:8px; font-size:12px;"><i class="fa fa-user"></i> <?=$this->session->userdata('name');?></a>
-				<div class="dropdown-menu animated fadeInUp">
-					<div class="main-header-profile header-img" style="background:#2fb855 !important;">
-				
+				<a class="profile-user mb-1 dropdown-toggle" href="#" id="userDropdown" role="button"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					style="background:#FFF; border-radius:8px; font-size:12px; padding:8px 12px; display:flex; align-items:center; gap:5px;">
+					<i class="fa fa-user"></i> <?= $this->session->userdata('name'); ?>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right animated fadeInUp" aria-labelledby="userDropdown">
+					<div class="main-header-profile header-img text-center py-3"
+						style="background:#2fb855 !important; border-radius:8px;">
+						<i class="fa fa-user-circle fa-3x text-white"></i>
+						<p class="mb-0 text-white font-weight-bold"> <?= $this->session->userdata('name'); ?> </p>
 					</div>
-					<!-- <a class="dropdown-item" href="profile.html"><i class="bx bx-user-circle"></i> My Profile</a>
-					<a class="dropdown-item" href="editprofile.html"><i class="bx bxs-edit"></i> Edit Profile</a>
-					<a class="dropdown-item" href="chat.html"><i class="bx bx-envelope"></i> Chat</a>
-					<a class="dropdown-item" href="account-setting.html"><i class="bx bx-cog"></i> Account Settings</a> -->
-					<a class="dropdown-item" href="<?php echo base_url('auth/logout')?>"><i class="bx bx-log-out-circle"></i> Sign Out</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="<?php echo base_url('records') ?>">
+						<i class="bx bx-cog"></i> Public Site
+					</a>
+					<a class="dropdown-item text-danger" href="<?php echo base_url('auth/logout') ?>">
+						<i class="bx bx-log-out-circle"></i> Sign Out
+					</a>
 				</div>
 			</div><!-- Main-profile-menu closed -->
-			<button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+
+			<button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false"
+				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon bx bx-dots-vertical-rounded"></span>
 			</button><!-- Navresponsive closed -->
 		</div>

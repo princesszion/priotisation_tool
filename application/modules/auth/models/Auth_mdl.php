@@ -62,8 +62,8 @@ class Auth_mdl extends CI_Model
 
 		$user = array(
 			"email" => $postdata['email'],
-			"contact" => $postdata['contact'],
 			"username" => $postdata['username'],
+			"memberstate_id" => $postdata["memberstate_id"],
 			"password" => $this->default_password,
 			"name" => $postdata['name'],
 			"role" => $postdata['role'],
@@ -72,28 +72,6 @@ class Auth_mdl extends CI_Model
 		);
 		$qry = $this->db->insert($this->table, $user);
 		$last_id = $this->db->insert_id();
-
-		if ($qry) {
-
-			foreach ($postdata['access1'] as $access) :
-
-				$access1 = array(
-					"user_id" => $last_id,
-					"access_id" => $access
-				);
-				$this->db->insert("user_access_level1", $access1);
-			endforeach;
-
-			foreach ($postdata['access2'] as $accessr) :
-
-				$data = array(
-					"user_id" => $last_id,
-					"access_id" => $accessr
-				);
-				$this->db->insert("user_access_level2", $data);
-			endforeach;
-		}
-
 		//insert access levels
 		$rows = $this->db->affected_rows();
 		if ($qry) {

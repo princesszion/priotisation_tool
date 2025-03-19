@@ -40,6 +40,7 @@
     
     <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/v/dt/dt-1.13.1/b-2.3.3/b-html5-2.3.3/datatables.min.css" />
+	
 
 	<!-- Map css-->
 	<link href="<?php echo base_url() ?>assets/plugins/jqvmap/jqvmap.min.css" rel="stylesheet">

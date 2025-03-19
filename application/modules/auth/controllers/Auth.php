@@ -30,26 +30,15 @@ class Auth extends MX_Controller
   
       // Ensure user data is an array
       $user = (array) $user;
-  
-      // Verify the entered password against the stored hash
-      // if (!$this->argonhash->check($password, $user['password'])) {
-      //     $this->session->set_flashdata('error_message', 'Invalid username or password');
-      //     redirect('records');
-      // }
-  
-      // Remove password before storing in session
       unset($user['password']);
   
       // Retrieve additional user access details
       $user['permissions'] = $this->auth_mdl->user_permissions($user['role']);
       $user['is_admin']    = true;
-      // $user['outbreak_id']=1;
-  
-      // Set user session data
       $this->session->set_userdata($user);
-  
+   
       // Redirect to dashboard or intended page
-      redirect('outbreaks');
+      redirect('records');
   }
   
 

@@ -399,20 +399,6 @@ if (!function_exists('is_valid_image')) {
     }
 }
 
-if (!function_exists('outbreak_menu')) {
-
-}
-
-
-if (!function_exists('get_outbreak')) {
-  function get_outbreak($id){
-    $ci = &get_instance();
-    $data = $ci->db->query("SELECT * FROM outbreak_events WHERE id=$id")->row();
-    return $data;
-  }
-
-}
-
 if (!function_exists('is_verified')) {
     function is_verified($table,$id){
       $ci = &get_instance();
