@@ -11,7 +11,7 @@
   <meta name="author" content="Africa CDC" />
 
   <!-- Favicon icon -->
-  <link rel="icon" href="<?php echo base_url(); ?>assets/images/icon_Africa_cdc.png" type="image/x-icon">
+  <link href="<?php echo base_url() ?>assets/img/favicon.png" rel="icon">
 
   <!-- Fontawesome -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/fonts/fontawesome/css/fontawesome-all.min.css">
