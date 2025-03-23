@@ -38,6 +38,8 @@
             <?php if ($this->session->userdata('role') == '10'): ?>
                 <button class="btn btn-danger mb-2" id="unassign-btn">Unassign Diseases</button>
             <?php endif; ?>
+            <!-- Save Button -->
+            <button class="btn btn-info mb-2" id="save-all-btn">Save All Changes</button>
 
             <div class="form-group">
                 <label>Select Diseases:</label>
@@ -51,8 +53,7 @@
                 </div>
             </div>
 
-            <!-- Save Button -->
-            <button class="btn btn-info mb-2" id="save-all-btn">Save All Changes</button>
+            
         </div>
     </div>
 </div>
