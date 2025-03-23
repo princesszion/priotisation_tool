@@ -12,8 +12,6 @@
     <!-- Custom CSS -->
     <link href="<?php echo base_url(); ?>resources/css/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <!-- Favicon -->
-    <link href="<?php echo base_url() ?>assets/img/favicon.png" rel="icon">
     <link rel="stylesheet" href="<?php echo base_url(); ?>resources/css/quiz.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>resources/css/sharing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
