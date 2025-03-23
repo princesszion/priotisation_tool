@@ -5,7 +5,7 @@
 
 
 </div>
-    <h5 class="mb-3">Disease Ranking Prioritisation Form (Annual)</h5>
+    <h5 class="mb-3">Disease Ranking Prioritisation</h5>
 
     <!-- Filters -->
 

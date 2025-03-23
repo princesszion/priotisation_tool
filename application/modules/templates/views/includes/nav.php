@@ -4,18 +4,18 @@
 		<nav class="horizontalMenu clearfix">
 			<ul class="horizontalMenu-list">
 				<li aria-haspopup="true"><a href="<?php echo base_url()?>dashboard/home" class="sub-icon"><i class="fa fa-th"></i>Main Dashboard<i class="fe fe-chevron-down horizontal-icon"></i></a>
-					<ul class="sub-menu">
+					<!-- <ul class="sub-menu">
 						
 				
 						
-					</ul>
+					</ul> -->
 				</li>
-				<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fas fa-th"></i>Data<i class="fe fe-chevron-down horizontal-icon"></i></a>
+				<!-- <li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fas fa-th"></i>Data<i class="fe fe-chevron-down horizontal-icon"></i></a>
 					<ul class="sub-menu">
 					    <li aria-haspopup="true"><a href="<?php echo base_url(); ?>dashboards/data" class="slide-item">Results</a></li>
 
 					</ul>
-				</li>
+				</li> -->
 				
 			
 				<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fas fa-cog"></i>Configurations<i class="fe fe-chevron-down horizontal-icon"></i></a>
