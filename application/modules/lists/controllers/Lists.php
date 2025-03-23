@@ -17,7 +17,8 @@ class Lists extends MX_Controller
 	public function get_thematic_areas(){
 		$diseases = $this->lists_mdl->get_thematic_areas();
 		echo json_encode($diseases);
-	}public function get_diseases_by_theme() {
+	}
+	public function get_diseases_by_theme() {
 		$themes = $this->input->post('thematic_ids'); // Receives thematic IDs array from AJAX
 	
 		if (!empty($themes)) {

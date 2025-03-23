@@ -33,7 +33,7 @@
         </div>
 
         <div class="col-md-6">
-            <button class="btn btn-success mb-2" id="assign-btn">Assign Diseases</button>
+            <!-- <button class="btn btn-success mb-2" id="assign-btn">Assign Diseases</button> -->
             <button class="btn btn-info mb-2" id="show-summary-btn">View Assigned Diseases</button>
             <?php if ($this->session->userdata('role') == '10'): ?>
                 <button class="btn btn-danger mb-2" id="unassign-btn">Unassign Diseases</button>

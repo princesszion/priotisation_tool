@@ -7,6 +7,7 @@ class Records extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('records_model');
+		$this->load->model('assignments_mdl');
 		$this->load->library('pagination');
 	}
 
@@ -23,7 +24,7 @@ class Records extends CI_Controller
 		render_site('dashboard', $data);
 	}
 
-	
+
 	public function profile()
 	{
 		// Pagination configuration
@@ -136,6 +137,57 @@ public function get_disease_probability_gauge()
 
     echo json_encode($probability);
 }
+
+public function assign_diseases()
+    {
+        $member_state_id = $this->input->post('member_state_id');
+        $diseases = $this->input->post('diseases');
+
+        $status = $this->assignments_mdl->assign_diseases($member_state_id, $diseases);
+
+        echo json_encode([
+            'status' => $status,
+            'message' => $status ? 'Diseases assigned successfully.' : 'Failed to assign diseases.'
+        ]);
+    }
+
+    public function unassign_diseases()
+    {
+        $member_state_id = $this->input->post('member_state_id');
+        $diseases = $this->input->post('diseases');
+
+        $status = $this->assignments_mdl->unassign_diseases($member_state_id, $diseases);
+
+        echo json_encode([
+            'status' => $status,
+            'message' => $status ? 'Diseases unassigned successfully.' : 'Failed to unassign diseases.'
+        ]);
+    }
+
+    public function get_diseases_by_theme()
+    {
+        $ids = $this->input->post('thematic_ids');
+        $diseases = $this->Disease_model->get_diseases_by_thematic_ids($ids);
+        echo json_encode($diseases);
+    }
+
+    public function get_assigned_diseases()
+    {
+        $member_state_id = $this->input->post('member_state_id');
+        $diseases = $this->assignments_mdl->get_assigned_diseases($member_state_id);
+        echo json_encode($diseases);
+    }
+
+    public function save_all_changes()
+    {
+        $changes = $this->input->post('changes');
+        $status = $this->assignments_mdl->save_all_changes($changes);
+
+        echo json_encode([
+            'status' => $status,
+            'message' => $status ? 'Changes saved successfully.' : 'Failed to save changes.'
+        ]);
+    }
 
 
 	
