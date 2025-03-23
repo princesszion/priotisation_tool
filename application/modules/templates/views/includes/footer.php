@@ -10,7 +10,8 @@
 
 <!-- Back-to-top -->
 <a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <!-- JQuery min js -->
 <script src="<?php echo base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
 

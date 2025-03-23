@@ -22,6 +22,8 @@ class Records extends CI_Controller
 		$data['prioritisation_categories'] = $this->lists_mdl->get_prioritisation_categories();
 		render_site('dashboard', $data);
 	}
+
+	
 	public function profile()
 	{
 		// Pagination configuration

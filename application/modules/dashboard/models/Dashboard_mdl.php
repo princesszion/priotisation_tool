@@ -11,4 +11,8 @@ class Dashboard_mdl extends CI_Model
         parent::__Construct();
     }
 
+    public function get_priotised_diseases ($filters){
+        
+    }
+
 }
