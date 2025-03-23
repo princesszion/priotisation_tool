@@ -33,10 +33,10 @@
 	<link href="<?php echo base_url() ?>assets/css/horizontalmenu/horizontal-menu.css" rel="stylesheet">
 
 	<!-- Skinmodes css -->
-	<link href="<?php echo base_url() ?>assets/css/skin-modes.css" rel="stylesheet">
+	<!-- <link href="<?php echo base_url() ?>assets/css/skin-modes.css" rel="stylesheet"> -->
 
 	<!-- Darktheme css -->
-	<link href="<?php echo base_url() ?>assets/css/style-dark.css" rel="stylesheet">
+	<!-- <link href="<?php echo base_url() ?>assets/css/style-dark.css" rel="stylesheet"> -->
     
     <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/v/dt/dt-1.13.1/b-2.3.3/b-html5-2.3.3/datatables.min.css" />
@@ -48,13 +48,19 @@
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+	<script src="https://code.highcharts.com/highcharts.js"></script>
 
-	<script src="<?php echo base_url() ?>node_modules/highcharts/highcharts.js"></script>
-	<script src="<?php echo base_url() ?>node_modules/highcharts/highcharts-more.js"></script>
-	<script src="<?php echo base_url() ?>node_modules/highcharts/modules/solid-gauge.js"></script>
-	<script src="<?php echo base_url() ?>node_modules/highcharts/modules/exporting.js"></script>
-	<script src="<?php echo base_url() ?>node_modules/highcharts/modules/export-data.js"></script>
-	<script src="<?php echo base_url() ?>node_modules/highcharts/modules/accessibility.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+	<script src="https://code.highcharts.com/modules/boost.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+
+
 
 
 	<style>

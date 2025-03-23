@@ -213,20 +213,7 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-  $('#summernote').summernote({
-    placeholder: 'Discussion body here',
-    tabsize: 2,
-    height: 200
-  });
-
-  $('.autocomplete').autocomplete({
-    source: "<?= base_url(); ?>records/autocomplete",
-    minLength: 3,
-    select: function (event, ui) {
-      $('.term').val(ui.item.label);
-      $('.search-form').submit();
-    }
-  });
+ 
 
   handleFilterChange();
   renderContinentalChart();

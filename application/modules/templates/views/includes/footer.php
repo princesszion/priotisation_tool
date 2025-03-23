@@ -93,6 +93,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
 
+
 <script>
 $('#disease_selector').select2({
   placeholder: 'Select Disease or Condition',
@@ -362,15 +363,6 @@ $(document).ready(function () {
 
 <script type="text/javascript">
 $(document).ready(function () {
-
-  $('.autocomplete').autocomplete({
-    source: "<?= base_url(); ?>records/autocomplete",
-    minLength: 3,
-    select: function (event, ui) {
-      $('.term').val(ui.item.label);
-      $('.search-form').submit();
-    }
-  });
 
   handleFilterChange();
   renderContinentalChart();
