@@ -24,8 +24,8 @@
           </div>
           <div class="col-md-6 col-lg-4">
             <label>Email (Default Password: mycountry$$)</label>
-            <input type="text" name="email" class="form-control" placeholder="Email Address" required>
-            <input type="hidden" name="password" value="<?= setting()->default_password ?>" readonly>
+            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+            <input type="hidden" name="password" value="<?= htmlspecialchars(setting()->default_password, ENT_QUOTES, 'UTF-8') ?>" readonly>
           </div>
           <div class="col-md-6 col-lg-4">
             <label>Member State</label>
@@ -60,7 +60,6 @@
     </div>
   </div>
 
-  <!-- Users Table -->
   <div class="col-lg-12">
     <div class="card border-0 shadow-sm">
       <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
@@ -110,8 +109,6 @@
                     <a href="#" data-toggle="modal" data-target="#reset<?= $user->id ?>">Reset</a>
                   </td>
                 </tr>
-
-                <!-- Modals for actions -->
                 <?php
                   include('user_details_modal.php');
                   include('confirm_reset.php');
@@ -127,3 +124,44 @@
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function () {
+  $('.select2').select2();
+
+  function showLoader() {
+    $('.status').html('<img style="max-height:50px" src="<?= base_url(); ?>assets/img/loading.gif">');
+  }
+
+  function showMessage(message, type = 'info') {
+    $.notify(message, type);
+    $('.status').html('');
+  }
+
+  $('.user_form').on('submit', function (e) {
+    e.preventDefault();
+    showLoader();
+    $.post('<?= base_url(); ?>auth/addUser', $(this).serialize(), function (result) {
+      showMessage(result);
+      $('.user_form')[0].reset();
+    });
+  });
+
+  $('.update_user, .reset, .block, .unblock').on('submit', function (e) {
+    e.preventDefault();
+    showLoader();
+    const url = $(this).attr('action');
+    const formData = new FormData(this);
+    $.ajax({
+      url: url,
+      method: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (result) {
+        showMessage(result);
+      }
+    });
+  });
+});
+</script>
