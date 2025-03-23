@@ -1,15 +1,5 @@
-<?php $this->load->view('charts.php')?>
-<div class="container-fluid">
 
-<div class="row">
-
-
-</div>
-    <h5 class="mb-3">Disease Ranking Prioritisation Data</h5>
-
-    <!-- Filters -->
-
-    
+ 
     <div class="row mb-2">
         <!-- Year -->
         <div class="col-md-2">
@@ -59,15 +49,27 @@
         <!-- Save Button -->
              <!-- Save Button -->
              <div class="col-md-3 mt-4 pt-2">
-    <button id="save-draft" class="btn btn-warning">
+    <!-- <button id="save-draft" class="btn btn-warning">
         <i class="fa-solid fa-floppy-disk"></i> Draft
     </button>
     <button id="final-submit" class="btn btn-success">
         <i class="fa-solid fa-check-circle"></i> Final Submission
-    </button>
+    </button> -->
 </div>
-      
-    </div>
+                </div>
+<?php $this->load->view('charts.php')?>
+<div class="container-fluid">
+
+<div class="row">
+
+
+</div>
+    <h5 class="mb-3">Disease Ranking Prioritisation Data</h5>
+
+    <!-- Filters -->
+
+   
+   
 
     <!-- Table -->
     <table class="table table-bordered table-sm table-striped">
