@@ -87,7 +87,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                 </div>
-                <input type="text" name="username" class="form-control" placeholder="Email address" required>
+                <input type="email" name="email" class="form-control" placeholder="Email address" required>
               </div>
 
               <div class="input-group mb-3">

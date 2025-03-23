@@ -1,4 +1,6 @@
 <?php
+
+use function PHPUnit\Framework\returnArgument;
 defined('BASEPATH') or exit('No direct script access allowed');
 #[AllowDynamicProperties]
 class Auth_mdl extends CI_Model
@@ -11,21 +13,10 @@ class Auth_mdl extends CI_Model
 	}
 	public function login($postdata)
 	{
-		$username = $postdata['username'];
-		if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
-			//login using username
-			$this->db->where("username", $username);
-			$this->db->where("status", 1);
-			$this->db->join('user_groups', 'user_groups.id=user.role');
-			$qry = $this->db->get($this->table);
-			$rows = $qry->num_rows();
-			if ($rows !== 0) {
-				$person = $qry->row();
-				return $person;
-			}
-		} else {
+		$email = $postdata['email'];
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			//login using email
-			$this->db->where("email", $username);
+			$this->db->where("email", $email);
 			$this->db->where("status", 1);
 			$this->db->join('user_groups', 'user_groups.id=user.role');
 			$qry = $this->db->get($this->table);
@@ -35,6 +26,10 @@ class Auth_mdl extends CI_Model
 				return $person;
 			}
 		}
+		else{
+			return "";
+		}
+		
 	}
 
 	public function getAll($start, $limit, $key)

@@ -20,17 +20,20 @@ class Auth extends MX_Controller
   
       $postdata = $this->input->post();
   
-      $username = $postdata['username'];
+      $email = $postdata['email'];
       $password = $postdata['password'];
+      //dd($this->argonhash->make($password));
   
       // Fetch user data from database
-      $user = $this->auth_mdl->login(['username' => $username]);
+      $user = $this->auth_mdl->login(['email' => $email]);
   
       // Check if user exists
       if (empty($user)) {
-          $this->session->set_flashdata('error_message', 'Invalid username or password');
-          redirect('records');
+          $this->session->set_flashdata('error_message', 'Invalid Email');
+          redirect('auth');
       }
+      else if($this->validate_password($password, $user->password)) {
+        
   
       // Ensure user data is an array
       $user = (array) $user;
@@ -48,8 +51,22 @@ class Auth extends MX_Controller
    
       // Redirect to dashboard or intended page
       redirect('records');
+    }
+    else{
+      $this->session->set_flashdata('error_message', 'Invalid Password');
+    redirect('auth');
+    }
   }
-  
+  public function validate_password($post_password,$dbpassword){
+    $auth = ($this->argonhash->check($post_password, $dbpassword));
+     if ($auth) {
+       return TRUE;
+     }
+     else{
+       return FALSE;
+     }
+     
+   }
 
   public function profile()
   {
