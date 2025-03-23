@@ -20,11 +20,11 @@ class Templates extends MX_Controller
 
 	public function plain($data)
 	{
-		dd($this->session->userdata());
+		//dd($this->session->userdata());
 		if ($this->session->userdata('is_admin')) {
 			redirect(base_url('dashboard'));
 		} else {
-			redirect(base_url('auth/login'));
+			redirect(base_url('auth'));
 		}
 
 		$this->load->view('plain', $data);
@@ -34,7 +34,12 @@ class Templates extends MX_Controller
 	public function frontend($data)
 	{
 		//check_logged_in();
+		if(!empty($this->session->userdata('id'))) {	
 		$this->load->view('site', $data);
+		}
+		else{
+		redirect('auth');
+		}
 	}
 
 	public function dashboards($data)

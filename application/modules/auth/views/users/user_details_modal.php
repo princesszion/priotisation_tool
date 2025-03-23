@@ -1,92 +1,84 @@
-<!-- Default modal Size -->
-<div class="modal fade" id="user<?php echo $user->id; ?>">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+<!-- User Update Modal -->
+<div class="modal fade" id="user<?= $user->id ?>" tabindex="-1" role="dialog" aria-labelledby="updateUserLabel<?= $user->id ?>" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="updateUserLabel<?= $user->id ?>">Update: <?= $user->name ?></h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
-                <h4 class="modal-title" id="defaultModalLabel">Update <?php echo $user->name; ?></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
+      <?php echo form_open_multipart(base_url('auth/updateUser'), ['class' => 'update_user']); ?>
+      <div class="modal-body">
+        <div class="status text-center text-info mb-3"></div>
 
-                <span class="status" style="margin:0 auto;"></span>
+        <input type="hidden" name="id" value="<?= $user->id ?>">
 
-                <?php echo form_open_multipart(base_url('auth/updateUser'), array('id' => 'update_user', 'class' => 'update_user')); ?>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Name <span class="text-danger">*</span></label>
+            <input type="text" name="name" class="form-control" value="<?= $user->name ?>" required>
+          </div>
 
+          <div class="form-group col-md-6">
+            <label>Email <span class="text-danger">*</span></label>
+            <input type="email" name="email" class="form-control" value="<?= $user->email ?>" required>
+          </div>
 
-                <div class="col-md-12">
-                    <strong style="margin-right: 1em;"> Name </strong>
-                    <input type="text" name="name" value="<?php echo $user->name; ?>" class="form-control"
-                        style="width:100%" required>
-                        <br>
+          <div class="form-group col-md-6">
+            <label>User Group <span class="text-danger">*</span></label>
+            <select name="role" class="form-control select2" required style="width:100%;">
+              <option value="" disabled>Select User Group</option>
+              <?php foreach ($usergroups as $group): ?>
+                <option value="<?= $group->id ?>" <?= $user->role == $group->id ? 'selected' : '' ?>>
+                  <?= $group->group_name ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
 
-                    <strong style="margin-right: 1em;">Email </strong>
-                    <input type="text" name="email" value="<?php echo $user->email; ?>" class="form-control"
-                        style="width:100%">
-                        <br>
+          <div class="form-group col-md-6">
+            <label>Organisation</label>
+            <input type="text" name="organization_name" class="form-control" value="<?= $user->organization_name ?>" placeholder="Organisation">
+          </div>
 
-                    <strong style="margin-right: 1em;">User Group </strong>
-                    <select name="role" style="width:100%;" class="form-control role select2" required>
+          <div class="form-group col-md-6">
+            <label>Member State <span class="text-danger">*</span></label>
+            <select name="memberstate_id" class="form-control select2" required style="width:100%;">
+              <option value="" disabled>Select Member State</option>
+              <?php
+              $states = $this->db->get('member_states')->result();
+              foreach ($states as $state): ?>
+                <option value="<?= $state->id ?>" <?= $user->memberstate_id == $state->id ? 'selected' : '' ?>>
+                  <?= $state->member_state ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
 
-                        <?php foreach ($usergroups as $usergroup) :
-            ?>
-                        <option value="<?php echo $usergroup->id; ?>" <?php if ($user->role == $usergroup->id) {
-                                                              echo "selected";
-                                                            } ?>><?php echo $usergroup->group_name; ?>
-
-                        </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <br>
-               
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Organisation</label>
-                        <input type="email" required name="email" class="form-control" placeholder="Email" required />
-
-
-                    </div>
-                </div>
-
-                <br>
-                <div class="col-md-12">
-                <div class="form-group">
-                    <label>Outbreak</label>
-                    <select name="outbreak_id" style="width:100%;" class="role form-control select2" required>
-                        <option value="" disabled selected>Select Outbreak</option>
-                        <?php 
-                $rows = $this->db->get('outbreak_events')->result();
-                foreach ($rows as $row) :
-                ?>
-                        <option value="<?php echo $row->id; ?>"
-                            <?php if ($user->outbreak_id==$row->id){ echo "selected";}?>>
-                            <?php echo $row->outbreak_name; ?>
-
-                        </option>
-                        <?php endforeach; ?>
-                    </select>
-
-
-                    </select>
-
-
-                </div>
-                </div>
-                <br><br>
-                <input type="hidden" name="id" value="<?php echo $user->id; ?>">
-
-                <button type="submit" data-toggle="modal" class="btn btn-info">Save Changes</button>
-
-
-            </div>
-            <div class="modal-footer">
-
-            </div>
-            </form>
+          <div class="form-group col-md-6">
+            <label>Level of Prioritisation <span class="text-danger">*</span></label>
+            <select name="priotisation_level" class="form-control select2" required style="width:100%;">
+              <option value="" disabled>Select Level</option>
+              <?php
+              $levels = $this->db->get('priotisation_category')->result();
+              foreach ($levels as $level): ?>
+                <option value="<?= $level->id ?>" <?= $user->priotisation_level == $level->id ? 'selected' : '' ?>>
+                  <?= $level->name ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
         </div>
+      </div>
+
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-info btn-sm">Save Changes</button>
+      </div>
+      </form>
     </div>
-</div>
+  </div>
 </div>

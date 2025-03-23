@@ -21,7 +21,7 @@
 				<div class="col-lg-5 col-md-5 text-center ">
 					<a href="<?php echo base_url() ?>">
 						<h3 style="color:black !important; font-weight:bold; margin-bottom: 7px;" class="notranslate">
-							Africa CDC Priotisation Tool
+							Africa CDC Research Priotisation Tool
 							<h3 class="slogan fw-bold" style="font-size: 14px; margin-bottom: 7px; margin-left: 20px;">
 								<?= @$memberstate ?>
 							</h3>
@@ -126,16 +126,7 @@
 						</select>
 					</li>
 
-					<?php if (empty($this->session->userdata('id'))): ?>
-
-						<li class="nav-item" style="float:right; margin-right:2px; border: 1px #f5f2f242 solid !important;">
-							<a href="#" class="nav-link" data-toggle="modal" data-target="#login"
-								class="ft-medium text-bold mb-10">
-								<i class="fa fa-user-alt"></i> Sign In
-							</a>
-						</li>
-
-					<?php else: ?>
+					<?php if (!empty($this->session->userdata('id'))): ?>
 
 						<li class="nav-item dropdown"
 							style="float:right; margin-right:2px; border: 1px #f5f2f242 solid !important;">
@@ -155,7 +146,7 @@
 								</a>
 							<?php } ?>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="<?php echo base_url('account/logout'); ?>">
+								<a class="dropdown-item" href="<?php echo base_url('auth/logout'); ?>">
 									<i class="fa fa-sign-out-alt"></i> Logout
 								</a>
 							</div>

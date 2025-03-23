@@ -248,7 +248,7 @@ public function generate_editable_table($table, $rows)
     $schema_query = $this->db->query("SHOW COLUMNS FROM " . $table);
     $schema = $schema_query->result_array();
 	// Columns to exclude from display
-    $excluded_columns = ['is_verified', 'created_at', 'updated_at'];
+    $excluded_columns = ['is_verified', 'created_at', 'updated_at','id'];
 
     // Start table with Bootstrap styling and DataTables integration
 	$table_html = '<div class="mb-2 mt-2 row">

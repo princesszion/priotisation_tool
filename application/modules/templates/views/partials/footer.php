@@ -167,6 +167,7 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/notify.min.js"></script>
 <script>
 	$(document).ready(function () {
 		$('#search-button').on('click', function () {
@@ -208,27 +209,9 @@
 		}
 	}, 3000);
 </script>
-<script type="text/javascript">
-	$('.autocomplete').autocomplete({
-		source: "<?php echo base_url(); ?>records/autocomplete",
-		minLength: 3,
-		select: function (event, ui) {
-			console.log(ui.item);
-			$('.term').val(ui.item.label);
-			$('.search-form').submit();
-		}
-	});
 
-	$(document).ready(function () {
-		$('#summernote').summernote({
-			placeholder: 'Discussion body here',
-			tabsize: 2,
-			height: 200
-		});
-	});
 
-	//Quizz
-</script>
+
 
 
 

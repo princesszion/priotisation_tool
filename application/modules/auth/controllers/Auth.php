@@ -9,6 +9,10 @@ class Auth extends MX_Controller
     $this->module = "auth";
   }
   
+  public function index(){
+  $data['module'] = $this->module;
+  $this->load->view("login/login");
+  }
 
   public function login()
   {
@@ -34,7 +38,12 @@ class Auth extends MX_Controller
   
       // Retrieve additional user access details
       $user['permissions'] = $this->auth_mdl->user_permissions($user['role']);
+      if($user['role']==10){
       $user['is_admin']    = true;
+      }
+      else{
+        $user['is_admin']    = false;
+      }
       $this->session->set_userdata($user);
    
       // Redirect to dashboard or intended page
@@ -55,7 +64,7 @@ class Auth extends MX_Controller
   {
     session_unset();
     session_destroy();
-    redirect("auth/login");
+    redirect("auth");
   }
 
   public function getUserByid($id)
@@ -116,7 +125,7 @@ class Auth extends MX_Controller
   public function updateUser()
   {
     $postdata = $this->input->post();
-    $userfile = $postdata['username'];
+    $userfile = $postdata['id'];
     //CHECK whether user upload a photo
     if (!empty($_FILES['photo']['tmp_name'])) {
       $config['upload_path']   = './assets/images/sm/';
@@ -220,7 +229,7 @@ class Auth extends MX_Controller
   {
     session_unset();
     session_destroy(); 
-    redirect( base_url());
+    redirect( 'auth');
   }
 
 }

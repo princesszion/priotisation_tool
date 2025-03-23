@@ -407,3 +407,13 @@ if (!function_exists('is_verified')) {
     }
   
   }
+
+  
+if (!function_exists('get_value')) {
+    function get_value($id,$table){
+      $ci = &get_instance();
+      $data = $ci->db->query("SELECT * FROM $table WHERE id=$id")->row();
+      return $data;
+    }
+  
+  }

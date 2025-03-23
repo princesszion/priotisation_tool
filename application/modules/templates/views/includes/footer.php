@@ -32,9 +32,7 @@
 <!-- Piety js -->
 <script src="<?php echo base_url() ?>assets/plugins/peity/jquery.peity.min.js"></script>
 
-<!-- P-scroll js -->
-<script src="<?php echo base_url() ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="<?php echo base_url() ?>assets/plugins/perfect-scrollbar/p-scroll.js"></script>
+
 
 <!-- Horizontalmenu js-->
 <script src="<?php echo base_url() ?>assets/plugins/horizontal-menu/horizontal-menu.js"></script>
@@ -75,8 +73,6 @@
 <link href="<?php echo base_url() ?>node_modules/select2/dist/css/select2.min.css" rel="stylesheet" />
 <script src="<?php echo base_url() ?>node_modules/select2/dist/js/select2.min.js"></script>
 
-<!-- Add TinyMCE Nodemodules -->
-<script src="<?php echo base_url() ?>node_modules/tinymce/tinymce.min.js"></script>
 
 <!-- Add Sweetalert2 Nodemodule -->
 <script src="<?php echo base_url() ?>node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
@@ -95,7 +91,21 @@
 	src="https://cdn.datatables.net/v/dt/dt-1.13.1/b-2.3.3/b-html5-2.3.3/datatables.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+
 <script>
+$('#disease_selector').select2({
+  placeholder: 'Select Disease or Condition',
+  allowClear: true,
+  width: '100%'
+});
+
+    $(document).ready(function () {
+  var container = document.querySelector('.scroll-wrapper');
+  if (container) {
+    new PerfectScrollbar(container);
+  }
+});
 	$(document).ready(function () {
 		// Handle deactivate button click
 		// CSRF token from a meta tag or hidden input
@@ -218,16 +228,6 @@
 </script>
 
 
-<script>
-	tinymce.init({
-		selector: "textarea#description",
-		plugins: [
-			"insertdatetime"
-		],
-		width: "auto",
-		height: 350,
-	});
-</script>
 
 
     
@@ -355,6 +355,7 @@ $(document).ready(function () {
         });
     });
 });
+
 
 
 </script>

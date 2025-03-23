@@ -1,18 +1,16 @@
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <h3 class="mb-4">Assign Diseases to Countries</h3>
 
     <!-- Country Selection -->
     <div class="form-group">
-        <label for="member_state">Select Country:</label>
-        <?php if ($this->session->userdata('role') == '10'): ?>
-            <select id="member_state" class="form-control">
+     
+            <label>Country</label>
+            <select id="member_state" class="form-control" <?php  if(!$this->session->userdata('is_admin')): ?> disabled <?php endif; ?>>
                 <?php foreach ($countries as $country): ?>
-                    <option value="<?= $country['id'] ?>"><?= $country['member_state'] ?></option>
+                    <option value="<?= $country['id'] ?>" <?php if($this->session->userdata('memberstate_id')==$country['id']){ echo "selected readonly";}?>><?= $country['member_state'] ?></option>
                 <?php endforeach; ?>
             </select>
-        <?php else: ?>
-            <input type="text" class="form-control" value="<?= $this->session->userdata('memberstate_id') ?>" readonly>
-        <?php endif; ?>
+    
     </div>
 
     <div class="row">
@@ -23,10 +21,12 @@
                     <input type="checkbox" id="select_all_thematic" class="form-check-input">
                     <label class="form-check-label" for="select_all_thematic">Select All</label>
                 </div>
-                <?php foreach ($thematic_areas as $area): ?>
+                <?php foreach ($thematic_areas as $area): 
+                    
+                    //dd($thematic_areas)?>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input thematic-checkbox" value="<?= $area['id'] ?>">
-                        <label class="form-check-label"> <?= $area['name'] ?> </label>
+                        <input type="checkbox" class="form-check-input thematic-checkbox" value="<?= $area->id ?>">
+                        <label class="form-check-label"> <?= $area->name ?> </label>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -50,9 +50,12 @@
                     <div id="disease-list" class="disease-grid"></div>
                 </div>
             </div>
+
+            <!-- Save Button -->
+            <button class="btn btn-info mb-2" id="save-all-btn">Save All Changes</button>
         </div>
     </div>
-
+</div>
 <script>
 $(document).ready(function() {
     let showCheckboxes = false; // Default state: without checkboxes
@@ -115,6 +118,27 @@ $(document).ready(function() {
     $('#disease-search').keyup(function() {
         let val = $(this).val().toLowerCase();
         $('.form-check').filter(function() { $(this).toggle($(this).text().toLowerCase().includes(val)); });
+    });
+
+    // Save Button Functionality
+    $('#save-all-btn').click(function() {
+        let changes = [];
+        $('.disease-checkbox:checked').each(function() {
+            changes.push({
+                disease_id: $(this).val(),
+                member_state_id: $('#member_state').val(),
+                thematic_area_id: $('.thematic-checkbox:checked').val() // Assuming one thematic area is selected
+            });
+        });
+
+        if (changes.length > 0) {
+            $.post('<?= base_url() ?>records/save_all_changes', { changes: changes }, function(response) {
+                let res = JSON.parse(response);
+                show_notification(res.message, res.status ? 'success' : 'error');
+            });
+        } else {
+            show_notification('No changes to save!', 'warning');
+        }
     });
 });
 </script>

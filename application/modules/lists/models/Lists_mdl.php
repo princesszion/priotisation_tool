@@ -6,6 +6,12 @@ class Lists_mdl extends CI_Model {
     public function get_thematic_areas(){
 
     
+        return  $this->db->get('disease_thematic_areas')->result();
+
+    }
+    public function get_thematic_areas_array(){
+
+    
         return  $this->db->get('disease_thematic_areas')->result_array();
 
     }
@@ -27,4 +33,8 @@ public function get_diseases(){
    public function get_memberstates(){
     return  $this->db->get('member_states')->result_array();
    }
+   public function get_prioritisation_categories(){
+ return  $this->db->get('priotisation_category')->result_array();
+
+}
 }

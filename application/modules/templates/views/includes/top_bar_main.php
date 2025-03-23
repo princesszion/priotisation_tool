@@ -183,27 +183,20 @@
 				</div>
 			</div> -->
 
-			<div class="dropdown nav-item main-header-notification">
-				<a class="profile-user mb-1 dropdown-toggle" href="#" id="userDropdown" role="button"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-					style="background:#FFF; border-radius:8px; font-size:12px; padding:8px 12px; display:flex; align-items:center; gap:5px;">
-					<i class="fa fa-user"></i> <?= $this->session->userdata('name'); ?>
-				</a>
-				<div class="dropdown-menu dropdown-menu-right animated fadeInUp" aria-labelledby="userDropdown">
-					<div class="main-header-profile header-img text-center py-3"
-						style="background:#2fb855 !important; border-radius:8px;">
-						<i class="fa fa-user-circle fa-3x text-white"></i>
-						<p class="mb-0 text-white font-weight-bold"> <?= $this->session->userdata('name'); ?> </p>
-					</div>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="<?php echo base_url('records') ?>">
-						<i class="bx bx-cog"></i> Public Site
-					</a>
-					<a class="dropdown-item text-danger" href="<?php echo base_url('auth/logout') ?>">
-						<i class="bx bx-log-out-circle"></i> Sign Out
-					</a>
-				</div>
-			</div><!-- Main-profile-menu closed -->
+
+
+			<div class="dropdown main-profile-menu nav nav-item nav-link">
+
+                <a class=""><img class="rounded-circle notranslate" src="https://khub.africacdc.org/storage/uploads/users/cc4fc62d561fc81d1065c02f02f3e0e3.png" style=" width: 45px; height: 45px; border-radius: 50%;  background-color: #FFE8;  "><span> <?= $this->session->userdata('name'); ?></span></a>
+                <div class="dropdown-menu animated fadeInUp">
+
+                    <a class="dropdown-item" href="<?php echo base_url('records') ?>" target="_blank"><i class="bx bx-link"></i>
+                        Priotistaion Site</a>
+            
+                    <a class="dropdown-item" href="<?php echo base_url('auth/logout') ?>"><i class="bx bx-log-out-circle"></i> Log
+                        Out</a>
+                </div>
+            </div>
 
 			<button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false"

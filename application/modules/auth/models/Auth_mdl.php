@@ -40,7 +40,7 @@ class Auth_mdl extends CI_Model
 	public function getAll($start, $limit, $key)
 	{
 		if (!empty($key)) {
-			$this->db->like("username", "$key", "both");
+			$this->db->like("email", "$key", "both");
 			$this->db->or_like("name", "$key", "both");
 		}
 		$this->db->limit($start, $limit);
@@ -62,8 +62,8 @@ class Auth_mdl extends CI_Model
 
 		$user = array(
 			"email" => $postdata['email'],
-			"username" => $postdata['username'],
 			"memberstate_id" => $postdata["memberstate_id"],
+			"organization_name" => $postdata["organization_name"],
 			"password" => $this->default_password,
 			"name" => $postdata['name'],
 			"role" => $postdata['role'],
@@ -85,7 +85,7 @@ class Auth_mdl extends CI_Model
 	public function updateUser($postdata)
 	{
 		$uid = $postdata['id'];
-		$this->db->where('user_id', $uid);
+		$this->db->where('id', $uid);
 		$query = $this->db->update($this->table, $postdata);
 		if ($query) {
 			return "User details updated";
@@ -94,32 +94,6 @@ class Auth_mdl extends CI_Model
 		}
 	}
 	// change password
-	public function changePass($postdata)
-	{
-		$oldpass = md5($postdata['oldpass']);
-		$newpass = md5($postdata['newpass']);
-		$user = $this->session->get_userdata();
-		$uid = $user['user_id'];
-		$this->db->select('password');
-		$this->db->where('user_id', $uid);
-		$qry = $this->db->get($this->table);
-		$user = $qry->row();
-		if ($user->password == $oldpass) {
-			// change the password
-			$data = array("password" => $newpass, "isChanged" => 1);
-			$this->db->where('user_id', $uid);
-			$query = $this->db->update($this->table, $data);
-
-			if ($query) {
-				$_SESSION['changed'] = 1;
-				return "Password Change Successful";
-			} else {
-				return "Operation failed, try again";
-			}
-		} else {
-			return "The old password you provided is wrong";
-		}
-	}
 	public function updateProfile($postdata)
 	{
 		$uid = $postdata['id'];
