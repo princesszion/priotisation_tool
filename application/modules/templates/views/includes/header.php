@@ -45,6 +45,10 @@
 	<!-- Animations css -->
 
 	<link href="<?php echo base_url() ?>assets/css/animate.css" rel="stylesheet">
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
 	<script src="<?php echo base_url() ?>node_modules/highcharts/highcharts.js"></script>
 	<script src="<?php echo base_url() ?>node_modules/highcharts/highcharts-more.js"></script>
 	<script src="<?php echo base_url() ?>node_modules/highcharts/modules/solid-gauge.js"></script>
