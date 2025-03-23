@@ -1,6 +1,6 @@
 
  
-    <div class="row mb-2">
+    <div class="row mb-2 container-fluid">
         <!-- Year -->
         <div class="col-md-2">
             <label>Year</label>
