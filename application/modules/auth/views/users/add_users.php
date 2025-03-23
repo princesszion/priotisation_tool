@@ -23,7 +23,7 @@
             </select>
           </div>
           <div class="col-md-6 col-lg-4">
-            <label>Email (Default Password: 123456)</label>
+            <label>Email (Default Password: mycountry$$)</label>
             <input type="text" name="email" class="form-control" placeholder="Email Address" required>
             <input type="hidden" name="password" value="<?= setting()->default_password ?>" readonly>
           </div>
