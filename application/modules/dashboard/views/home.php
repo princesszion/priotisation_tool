@@ -64,7 +64,7 @@
 
 
 </div>
-    <h5 class="mb-3">Disease Ranking Prioritisation Data</h5>
+    <h5 class="mb-3" style="display:none;">Disease Ranking Prioritisation Data</h5>
 
     <!-- Filters -->
 
