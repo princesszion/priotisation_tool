@@ -72,7 +72,7 @@
    
 
     <!-- Table -->
-    <table class="table table-bordered table-sm table-striped">
+    <table class="table table-bordered table-sm table-striped" style="display:none;">
         <thead class="thead-dark">
             <tr>
                 <th style="width:25%;">Health Condition</th>
