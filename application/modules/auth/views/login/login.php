@@ -20,9 +20,8 @@
   <!-- Style -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/style.css">
 
-  <!-- Lobibox CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lobibox@1.2.4/css/lobibox.min.css" />
-
+         <!-- Lobibox CSS -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/notifications/css/lobibox.min.css" />
   <style>
     body {
       background: url('<?php echo base_url(); ?>assets/images/image_cdc.jpg') no-repeat center center fixed;
@@ -78,7 +77,7 @@
           <div class="card">
             <div class="card-body">
               <h4 class="mb-3 f-w-400">Africa CDC Research Priotisation Tool</h4>
-
+              
               <img src="<?php echo base_url() ?>assets/images/logo.png" alt="Africa CDC Logo" class="img-fluid">
               <h5 class="mb-3 f-w-400">Sign In</h5>
               <?php echo form_open_multipart(base_url('auth/login'), array('id' => 'filetypes', 'class' => 'filetypes')); ?>
@@ -122,33 +121,29 @@
   </div>
 
   <!-- Required JS -->
-  <script src="<?php echo base_url() ?>assets/js/vendor-all.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="<?php echo base_url() ?>assets/plugins/notifications/js/lobibox.min.js"></script>
+  <script src="<?php echo base_url() ?>assets/plugins/notifications/js/notifications.min.js"></script>
 
-  <!-- jQuery (Required for Lobibox) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Lobibox JS -->
-  <script src="https://cdn.jsdelivr.net/npm/lobibox@1.2.4/js/lobibox.min.js"></script>
-
-  <!-- Flash Message Display using Lobibox -->
   <script>
     $(document).ready(function () {
       <?php if ($this->session->flashdata('error_message')): ?>
         Lobibox.notify('error', {
           pauseDelayOnHover: true,
           continueDelayOnInactiveTab: false,
-          position: 'top right',
+          position: 'top center',
           icon: 'fa fa-times-circle',
-          msg: "<?php echo addslashes($this->session->flashdata('error_message')); ?>"
+          msg: "<?php echo ($this->session->flashdata('error_message')); ?>"
         });
       <?php endif; ?>
 
       <?php if ($this->session->flashdata('success_message')): ?>
         Lobibox.notify('success', {
           pauseDelayOnHover: true,
-          position: 'top right',
+          position: 'top center',
           icon: 'fa fa-check-circle',
-          msg: "<?php echo addslashes($this->session->flashdata('success_message')); ?>"
+          msg: "<?php echo ($this->session->flashdata('success_message')); ?>"
         });
       <?php endif; ?>
     });
