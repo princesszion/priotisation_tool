@@ -109,7 +109,7 @@
 					</li>
 					<li class="nav-item" role="presentation">
 						<a class="nav-link" id="" href="<?= base_url() ?>records/profile" ><i
-								class="fa fa-virus"></i>Disease / Condition Profile
+								class="fa fa-virus"></i>Disease - Condition Country Profile
 						</a>
 					</li>
 
