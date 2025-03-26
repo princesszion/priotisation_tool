@@ -31,7 +31,7 @@
             <label>Member State</label>
             <select name="memberstate_id" class="form-control select2" required>
               <option value="" disabled selected>Select Member State</option>
-              <?php foreach ($this->db->get('member_states')->result() as $row): ?>
+              <?php foreach ($this->db->query('SELECT * FROM member_states ORDER BY member_state ASC')->result() as $row): ?>
                 <option value="<?= $row->id ?>"><?= $row->member_state ?></option>
               <?php endforeach; ?>
             </select>

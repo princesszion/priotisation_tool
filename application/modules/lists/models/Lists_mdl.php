@@ -31,6 +31,7 @@ public function get_diseases(){
    return $data->result_array();
 }
    public function get_memberstates(){
+            $this->db->order_by('member_state','ASC');
     return  $this->db->get('member_states')->result_array();
    }
    public function get_prioritisation_categories(){
