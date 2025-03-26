@@ -9,9 +9,10 @@
       <div class="mt-3 text-center">
         <strong>Probability Key:</strong>
         <div class="d-flex justify-content-around align-items-center mt-2">
-          <span style="color: #007749;">&#9632; Low</span>
-          <span style="color: #FCD116;">&#9632; Medium</span>
-          <span style="color: #CE1126;">&#9632; High</span>
+        <span style="color: #28a745;">&#9632; Low</span>    
+        <span style="color: #ffc107;">&#9632; Medium</span>  
+        <span style="color: #dc3545;">&#9632; High</span>    
+
         </div>
       </div>
 
