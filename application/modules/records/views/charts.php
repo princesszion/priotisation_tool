@@ -3,7 +3,7 @@
     <div class="col-md-3 p-2">
   <div class="card">
     <div class="card-body">
-      <div id="disease-probability-gauge" style="height: 250px;"></div>
+      <div id="disease-probability-gauge" style="height: 275px;"></div>
 
       <!-- Legend / Key -->
       <div class="mt-3 text-center">
