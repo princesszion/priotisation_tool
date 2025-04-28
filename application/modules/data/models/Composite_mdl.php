@@ -94,10 +94,10 @@ class Composite_mdl extends CI_Model
 				'priority_level' => $level,  
 				'updated_at' => date('Y-m-d H:i:s')
 			 );
-			 dd($data);
+			// dd($data);
 				// 7. Update the record
 				$this->db->where('id', $row->id);
-				$this->db->update('member_state_diseases_data', );
+				$this->db->update('member_state_diseases_data',$data);
 			}
 		
 			echo "Composite index correction and update done successfully.";
