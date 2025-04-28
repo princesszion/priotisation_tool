@@ -26,7 +26,7 @@ class Composite_mdl extends CI_Model
 		}
 		public function correct_composite_index()
 		{
-			$this->db->where('temp_composite_index IS NULL', null, false);
+			//$this->db->where('temp_composite_index IS NULL', null, false);
 			$data = $this->db->get('member_state_diseases_data')->result();
 		
 			foreach ($data as $row) {
@@ -85,18 +85,19 @@ class Composite_mdl extends CI_Model
 				} else {
 					$level = 'Low';
 				}
-		
+		     $data = array(
+				'temp_composite_index' => $temp_composite_index,
+				'temp_probability' => $temp_probability,
+				'temp_priority_level' => $temp_priority_level,
+				'composite_index' => $composite_index,
+				'probability' => $probability,
+				'priority_level' => $level,  
+				'updated_at' => date('Y-m-d H:i:s')
+			 );
+			 dd($data);
 				// 7. Update the record
 				$this->db->where('id', $row->id);
-				$this->db->update('member_state_diseases_data', [
-					'temp_composite_index' => $temp_composite_index,
-					'temp_probability' => $temp_probability,
-					'temp_priority_level' => $temp_priority_level,
-					'composite_index' => $composite_index,
-					'probability' => $probability,
-					'priority_level' => $level,  
-					'updated_at' => date('Y-m-d H:i:s')
-				]);
+				$this->db->update('member_state_diseases_data', );
 			}
 		
 			echo "Composite index correction and update done successfully.";
