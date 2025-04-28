@@ -26,7 +26,7 @@ class Composite_mdl extends CI_Model
 		}
 		public function correct_composite_index()
 		{
-			//$this->db->where('temp_composite_index IS NULL', null, false);
+			$this->db->where('temp_composite_index IS NULL', null, false);
 			$data = $this->db->get('member_state_diseases_data')->result();
 		
 			foreach ($data as $row) {
