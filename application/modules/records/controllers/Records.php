@@ -76,7 +76,9 @@ class Records extends CI_Controller
 			echo json_encode(['status' => 'error', 'message' => 'Error saving data.']);
 		}
 	}
-
+    public function data_correction(){
+		$this->composite_mdl->correct_composite_index();
+	}
 	public function get_disease_chart_data()
 	{
 		// Get raw JSON body

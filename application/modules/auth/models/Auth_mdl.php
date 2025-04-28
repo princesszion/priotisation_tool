@@ -143,6 +143,7 @@ class Auth_mdl extends CI_Model
 		$perms = $query->result_array();
 		return $perms;
 	}
+
 	public function getGroupPerms($groupId = FALSE)
 	{
 		$this->db->where('id', $groupId);
@@ -205,4 +206,45 @@ class Auth_mdl extends CI_Model
 		$this->db->where('user_id', $id);
 		return $this->db->get($this->table, $id)->row();
 	}
+	// change password
+	public function changePass($postdata)
+	{
+		$oldpass = $postdata['old_password'];
+		$newpass = $this->argonhash->make($postdata['new_password']);
+		$user = $this->session->get_userdata();
+		$uid = $user['id'];
+		$this->db->select('password');
+		$this->db->where('id', $uid);
+		$qry = $this->db->get($this->table);
+		$user = $qry->row();
+		
+		
+		if($this->validate_password($oldpass,$user->password)){
+		
+			// change the password
+			$data = array("password" => $newpass, "isChanged" => 1);
+			$this->db->where('id', $uid);
+			$query = $this->db->update($this->table, $data);
+
+			if ($query) {
+				$_SESSION['changed'] = 1;
+				return "Password Change Successful";
+			} else {
+				return "Operation failed, try again";
+			}
+		} else {
+			return "The old password you provided is wrong";
+		}
+	}
+	public function validate_password($post_password,$dbpassword){
+		$auth = ($this->argonhash->check($post_password, $dbpassword));
+		 if ($auth) {
+		   return TRUE;
+		 }
+		 else{
+		   return FALSE;
+		 }
+		 
+	   }
+	
 }

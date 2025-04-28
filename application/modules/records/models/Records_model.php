@@ -81,9 +81,11 @@ class Records_model extends CI_Model
     } else {
         $this->db->insert('member_state_diseases_data', $data);
     }
-
+    correct_composite_index_async();
     return true;
 }
+
+
 
 
 	public function get_member_state_disease_data($member_state_id, $period, $disease_id, $prioritisation_category_id)

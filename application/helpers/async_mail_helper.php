@@ -79,4 +79,26 @@ if (!function_exists('send_email_async')) {
     }
 
 
+if (!function_exists('correct_composite_index_async')) {
+    function correct_composite_index_async()
+    {
+        return new Promise(function ($resolve, $reject) {
+            try {
+                $ci = &get_instance();
+                $loop = Loop::get();
+
+                $loop->futureTick(function () use ($ci, $resolve) {
+                    $ci->load->model('composite_mdl');
+                    $result = $ci->composite_mdl->correct_composite_index();
+                    $resolve($result);
+                });
+            } catch (Throwable $e) {
+                $reject($e->getMessage());
+            }
+        });
+    }
+}
+
+
+
 }

@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('lists/lists_mdl' => 'lists_mdl');
+$autoload['model'] = array('lists/lists_mdl' => 'lists_mdl','data/composite_mdl' => 'composite_mdl');

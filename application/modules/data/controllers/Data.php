@@ -13,7 +13,9 @@ class Data extends MX_Controller
 		$this->title  = "Data";
 		$this->load->model("data_mdl", 'datamdl');
 	}
-
+    public function correct_composite_index(){
+		$this->composite_mdl->correct_composite_index();
+	}
 	public function form($table,$cols)
 	
 	{
