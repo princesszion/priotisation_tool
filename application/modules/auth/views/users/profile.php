@@ -15,7 +15,7 @@
 
 <div class="card">
     <div class="card-header pb-0 border-bottom">
-        <div class="card-title pb-1">Edit Password</div>
+        <div class="card-title pb-1">Change Password</div>
     </div>
     <div class="card-body">
         <div class="form-group mb-3">
