@@ -74,7 +74,7 @@ class Auth extends MX_Controller
     $data['view'] = "profile";
     $data['title'] = "My Profile";
 
-    render("users/profile", $data);
+    render_site("users/profile", $data);
 
   }
   public function logout()

@@ -124,44 +124,63 @@
     </div>
   </div>
 </div>
-
 <script>
 $(document).ready(function () {
-  $('.select2').select2();
-
-  function showLoader() {
-    $('.status').html('<img style="max-height:50px" src="<?= base_url(); ?>assets/img/loading.gif">');
+  // Ensure select2 is available
+  if ($.fn.select2) {
+    $('.select2').select2();
   }
 
-  function showMessage(message, type = 'info') {
-    $.notify(message, type);
-    $('.status').html('');
+  // Ensure jQuery is loaded
+  if (typeof $ === 'undefined') {
+    console.error("jQuery not loaded");
+    return;
   }
 
-  $('.user_form').on('submit', function (e) {
+  // CSRF setup if CodeIgniter uses it (you can disable this block if not needed)
+
+  // Submit handler for add user form
+  $('#userform').on('submit', function (e) {
     e.preventDefault();
     showLoader();
-    $.post('<?= base_url(); ?>auth/addUser', $(this).serialize(), function (result) {
+
+    const formData = $(this).serializeArray();
+    formData.push({ name: csrfName, value: csrfHash });
+
+    $.post('<?= base_url('auth/addUser') ?>', formData, function (result) {
       showMessage(result);
-      $('.user_form')[0].reset();
+      $('#userform')[0].reset();
+      $('.select2').val(null).trigger('change'); // Reset select2s
+    }).fail(function (xhr) {
+      console.error("Error:", xhr.responseText);
+      showMessage('Error occurred while submitting form.');
     });
   });
 
+  // Submit handler for update/reset/block/unblock forms
   $('.update_user, .reset, .block, .unblock').on('submit', function (e) {
     e.preventDefault();
     showLoader();
+
     const url = $(this).attr('action');
     const formData = new FormData(this);
+    formData.append(csrfName, csrfHash);
+
     $.ajax({
       url: url,
-      method: 'POST',
+      type: 'POST',
       data: formData,
       contentType: false,
       processData: false,
       success: function (result) {
         showMessage(result);
+      },
+      error: function (xhr) {
+        console.error("Error:", xhr.responseText);
+        showMessage('Failed to submit the form.');
       }
     });
   });
 });
 </script>
+

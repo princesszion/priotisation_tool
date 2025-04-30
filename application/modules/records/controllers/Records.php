@@ -18,7 +18,7 @@ class Records extends CI_Controller
 		$data['uptitle'] = "Country";
 		$data['countries'] = $this->lists_mdl->get_memberstates();
 		$data['thematic_areas'] = $this->lists_mdl->get_thematic_areas();
-		//dd($data);
+	
 		$data['diseases'] =$this->lists_mdl->get_diseases();
 		$data['prioritisation_categories'] = $this->lists_mdl->get_prioritisation_categories();
 		render_site('dashboard', $data);

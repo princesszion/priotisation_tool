@@ -485,6 +485,24 @@ function show_notification(message, msgtype) {
   });
 }
 
+$('#changePass').submit(function(e) {
+    e.preventDefault();
+    var data = $(this).serialize();
+    var url = '<?php echo base_url()?>auth/changePass';
+    console.log(data);
+    $.ajax({
+        url: url,
+        method: "post",
+        data: data,
+        success: function(res) {
+
+                show_notification(res, 'success');
+           
+            //console.log(res);
+        }
+    });
+});
+
 
 </script>
 
