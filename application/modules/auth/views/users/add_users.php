@@ -125,62 +125,118 @@
   </div>
 </div>
 <script>
-$(document).ready(function () {
-  // Ensure select2 is available
-  if ($.fn.select2) {
+// $(document).ready(function () {
+//   // Ensure select2 is available
+//   if ($.fn.select2) {
+//     $('.select2').select2();
+//   }
+
+//   // Ensure jQuery is loaded
+//   if (typeof $ === 'undefined') {
+//     console.error("jQuery not loaded");
+//     return;
+//   }
+
+//   // CSRF setup if CodeIgniter uses it (you can disable this block if not needed)
+
+//   // Submit handler for add user form
+//   $('#userform').on('submit', function (e) {
+//     e.preventDefault();
+//     showLoader();
+
+//     const formData = $(this).serializeArray();
+//     formData.push({ name: csrfName, value: csrfHash });
+
+//     $.post('<?= base_url('auth/addUser') ?>', formData, function (result) {
+//       showMessage(result);
+//       $('#userform')[0].reset();
+//       $('.select2').val(null).trigger('change'); // Reset select2s
+//     }).fail(function (xhr) {
+//       console.error("Error:", xhr.responseText);
+//       //showMessage('Error occurred while submitting form.');
+//       show_notification(xhr.responseText, 'success');
+//     });
+//   });
+
+//   // Submit handler for update/reset/block/unblock forms
+//   $('.update_user, .reset, .block, .unblock').on('submit', function (e) {
+//     e.preventDefault();
+//     showLoader();
+
+//     const url = $(this).attr('action');
+//     const formData = new FormData(this);
+//     formData.append(csrfName, csrfHash);
+
+//     $.ajax({
+//       url: url,
+//       type: 'POST',
+//       data: formData,
+//       contentType: false,
+//       processData: false,
+//       success: function (result) {
+//         showMessage(result);
+//       },
+//       error: function (xhr) {
+//         console.error("Error:", xhr.responseText);
+//         showMessage('Failed to submit the form.');
+//       }
+//     });
+//   });
+// });
+
+
+  // Define baseUrl globally
+  var baseUrl = "<?php echo base_url(); ?>";
+
+  $(document).ready(function () {
+    // Initialize Select2
     $('.select2').select2();
-  }
 
-  // Ensure jQuery is loaded
-  if (typeof $ === 'undefined') {
-    console.error("jQuery not loaded");
-    return;
-  }
+    // Display notification
+    function show_notification(message, type = 'info') {
+      $.notify(message, { className: type, position: "top center" });
+      $('.status').html('');
+    }
 
-  // CSRF setup if CodeIgniter uses it (you can disable this block if not needed)
+    // Handle user form submission
+    $('#userform').on('submit', function (e) {
+      e.preventDefault();
+     
+      const formData = $(this).serialize();
 
-  // Submit handler for add user form
-  $('#userform').on('submit', function (e) {
-    e.preventDefault();
-    showLoader();
+      $.post(baseUrl + 'auth/addUser', formData)
+        .done(function (result) {
+          show_notification(result, 'success');
+          $('#userform')[0].reset();
+          $('.select2').val(null).trigger('change'); // Reset Select2 elements
+        })
+        .fail(function (xhr) {
+          console.error("Error:", xhr.responseText);
+          show_notification(xhr.responseText, 'error');
+        });
+    });
 
-    const formData = $(this).serializeArray();
-    formData.push({ name: csrfName, value: csrfHash });
+    // Handle other form submissions
+    $('.update_user, .reset, .block, .unblock').on('submit', function (e) {
+      e.preventDefault();
+      showLoader();
+      const url = $(this).attr('action');
+      const formData = new FormData(this);
 
-    $.post('<?= base_url('auth/addUser') ?>', formData, function (result) {
-      showMessage(result);
-      $('#userform')[0].reset();
-      $('.select2').val(null).trigger('change'); // Reset select2s
-    }).fail(function (xhr) {
-      console.error("Error:", xhr.responseText);
-      showMessage('Error occurred while submitting form.');
+      $.ajax({
+        url: url,
+        method: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (result) {
+          show_notification(result, 'success');
+        },
+        error: function (xhr) {
+          console.error("Error:", xhr.responseText);
+          show_notification(xhr.responseText, 'error');
+        }
+      });
     });
   });
-
-  // Submit handler for update/reset/block/unblock forms
-  $('.update_user, .reset, .block, .unblock').on('submit', function (e) {
-    e.preventDefault();
-    showLoader();
-
-    const url = $(this).attr('action');
-    const formData = new FormData(this);
-    formData.append(csrfName, csrfHash);
-
-    $.ajax({
-      url: url,
-      type: 'POST',
-      data: formData,
-      contentType: false,
-      processData: false,
-      success: function (result) {
-        showMessage(result);
-      },
-      error: function (xhr) {
-        console.error("Error:", xhr.responseText);
-        showMessage('Failed to submit the form.');
-      }
-    });
-  });
-});
 </script>
-
