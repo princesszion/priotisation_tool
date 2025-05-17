@@ -503,6 +503,35 @@ $('#changePass').submit(function(e) {
     });
 });
 
+$(document).ready(function () {
+  function fetchDiseases(member_state_id) {
+    $.post("<?= base_url('records/get_diseases_by_country') ?>", 
+      { member_state_id: member_state_id }, 
+      function (response) {
+        const diseases = JSON.parse(response);
+        const selector = $('#disease_selector');
+
+        // Clear previous options except the placeholder
+        selector.find('option:not(:first)').remove();
+
+        // Append new options
+        diseases.forEach(function (disease) {
+          selector.append(`<option value="${disease.disease_id}">${disease.name}</option>`);
+        });
+
+        selector.trigger('change.select2');
+      }
+    );
+  }
+
+  // On country change (for admins)
+  $('#member_state').on('change', function () {
+    fetchDiseases($(this).val());
+  });
+
+  // Auto-load on page load based on current selected country
+  fetchDiseases($('#member_state').val());
+});
 
 </script>
 

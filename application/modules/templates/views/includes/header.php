@@ -82,6 +82,10 @@
 			content: 'Click to Upload';
 			display: inline-block;
 		}
+		body {
+		transform: translateZ(0);
+		backface-visibility: hidden;
+		}
 	</style>
 
 </head>

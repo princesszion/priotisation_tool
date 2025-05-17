@@ -191,7 +191,28 @@ public function assign_diseases()
         ]);
     }
 
-
+	public function get_diseases_by_country()
+	{
+		$role = $this->session->userdata('role');
+		$session_member_state_id = $this->session->userdata('memberstate_id');
+	
+		// If user is not admin (role != 10), override input with session value
+		if ($role != 10) {
+			$id = $session_member_state_id;
+		} else {
+			$id = $this->input->post('member_state_id');
+		}
+	
+		$query = "SELECT msd.disease_id, dc.name 
+				  FROM member_state_diseases msd
+				  JOIN diseases_and_conditions dc ON msd.disease_id = dc.id
+				  WHERE msd.member_state_id = ?";
+		
+		$diseases = $this->db->query($query, [$id])->result();
+	
+		echo json_encode($diseases);
+	}
+	
 	
 
 }

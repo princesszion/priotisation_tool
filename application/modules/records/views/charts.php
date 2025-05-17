@@ -16,13 +16,14 @@
         </div>
       </div>
 
-      <!-- Disease Selector -->
+    <!-- Disease Selector -->
+
       <select id="disease_selector" class="form-control select2 mt-3">
         <option value="">Select Condition for Probability</option>
-        <?php foreach ($diseases as $disease): ?>
-          <option value="<?= $disease['id'] ?>"><?= $disease['name'] ?></option>
-        <?php endforeach; ?>
       </select>
+
+
+      
     </div>
   </div>
 </div>

@@ -205,6 +205,10 @@
             font-weight: bold !important;
         }
 
+        body {
+		transform: translateZ(0);
+		backface-visibility: hidden;
+		}
         .mobileonly {
             display: none;
         }
