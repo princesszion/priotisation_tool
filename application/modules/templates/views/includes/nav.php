@@ -42,6 +42,13 @@
 						<li class=""><a href="<?php echo base_url() ?>data/view/user_groups/2" class="">Authentication Groups</a></li>
 					</ul>
 				</li>
+
+				<li>
+				<a href="<?= base_url('records') ?>" target="_blank">
+					<i class="fa fa-globe"></i> Go to Priotisation Site
+				</a>
+				</li>
+
 			</ul>
 		</nav>
 		<!--Nav-->
