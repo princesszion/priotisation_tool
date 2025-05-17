@@ -418,7 +418,7 @@ function renderChartByThematicArea(filters) {
     .then(data => {
       const categories = data.map(item => item.thematic_area);
       const counts = data.map(item => parseInt(item.total));
-      const colors = ['#5D5D5E'];
+      const colors = ['#B3B3B3'];
       const seriesData = counts.map((count, i) => ({ y: count, color: colors[i % colors.length] }));
 
       Highcharts.chart('priority-disease-chart', {
@@ -478,7 +478,7 @@ function renderContinentalChart() {
     .then(data => {
       const categories = data.map(item => item.thematic_area);
       const counts = data.map(item => parseInt(item.total));
-      const colors = ['#5D5D5E'];
+      const colors = ['#B3B3B3'];
       const seriesData = counts.map((count, i) => ({ y: count, color: colors[i % colors.length] }));
 
       Highcharts.chart('continental-disease-chart', {
