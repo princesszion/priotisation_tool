@@ -417,3 +417,11 @@ if (!function_exists('get_value')) {
     }
   
   }
+  if (!function_exists('get_user_group')) {
+    function get_user_group($id){
+      $ci = &get_instance();
+      $data = $ci->db->query("SELECT * FROM user_groups WHERE id=$id")->row();
+      return $data;
+    }
+  
+  }

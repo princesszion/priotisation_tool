@@ -63,9 +63,10 @@ class Composite_mdl extends CI_Model
 				// 4. Handle scenarios and corrections
 				$composite_index = $temp_composite_index; // Default
 				if ($this->matchScenario1($detect, $prev, $morbid, $case, $mort)) {
-					$composite_index += 1.11;
-				} elseif ($this->matchScenario2($detect, $prev, $morbid, $case, $mort)) {
 					$composite_index += 0.9;
+				
+				} elseif ($this->matchScenario2($detect, $prev, $morbid, $case, $mort)) {
+					$composite_index += 1.11;
 				}
 		
 				// 5. Calculate probability from final composite_index

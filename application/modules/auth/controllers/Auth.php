@@ -135,38 +135,82 @@ class Auth extends MX_Controller
   }
   public function addUser()
   {
-    $postdata = $this->input->post();
-    $res = $this->auth_mdl->addUser($postdata);
-    echo $res;
+      // Load the form validation library
+      $this->load->library('form_validation');
+  
+      // Define validation rules
+      $this->form_validation->set_rules('name', 'Name', 'required|trim');
+      $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
+      $this->form_validation->set_rules('role', 'User Group', 'required|integer');
+      $this->form_validation->set_rules('memberstate_id', 'Member State', 'required|integer');
+      $this->form_validation->set_rules('priotisation_level', 'Level of Prioritisation', 'required|integer');
+  
+      // Run validation
+      if ($this->form_validation->run() === FALSE) {
+          // Validation failed
+          $errors = $this->form_validation->error_array();
+          return $this->output
+                      ->set_content_type('application/json')
+                      ->set_status_header(400)
+                      ->set_output(json_encode([
+                          'status' => 'error',
+                          'message' => 'Validation failed.',
+                          'errors' => $errors
+                      ]));
+      }
+  
+      // Retrieve POST data
+      $postdata = $this->input->post();
+  
+      // Attempt to add user via the model
+      $res = $this->auth_mdl->addUser($postdata);
+  
+      if ($res) {
+        $msg = array(
+          'msg' => 'Staff Updated successfully.',
+          'type' => 'success'
+        );
+        
+        
+      }
+      else{
+        $msg = array(
+          'msg' => 'Updated Failed!.',
+          'type' => 'error'
+        );
+  
+      }
+      Modules::run('utility/setFlash', $msg);
+      redirect('auth/users');
   }
+  
   public function updateUser()
   {
-    $postdata = $this->input->post();
-    $userfile = $postdata['id'];
-    //CHECK whether user upload a photo
-    if (!empty($_FILES['photo']['tmp_name'])) {
-      $config['upload_path']   = './assets/images/sm/';
-      $config['allowed_types'] = 'gif|jpg|png';
-      $config['max_size']      = 3070;
-      $config['file_name']      = $userfile;
-      $this->load->library('upload', $config);
-      if (!$this->upload->do_upload('photo')) {
-        $error = $this->upload->display_errors();
-        echo strip_tags($error);
-      } else {
-        $data = $this->upload->data();
-        $photofile = $data['file_name'];
-        $path = $config['upload_path'] . $photofile;
-        //water mark the photo
-        $this->photoMark($path);
-        $postdata['photo'] = $photofile;
-        $res = $this->auth_mdl->updateUser($postdata);
+      $postdata = $this->input->post();
+
+    // dd($postdata);
+  
+      $result = $this->auth_mdl->updateUser($postdata);
+
+      if ($result) {
+        $msg = array(
+          'msg' => 'Staff Updated successfully.',
+          'type' => 'success'
+        );
+        
+        
       }
-    } //user uploaded with a photo
-    else {
-      $res = $this->auth_mdl->updateUser($postdata);
-    } //no photo
+      else{
+        $msg = array(
+          'msg' => 'Updated Failed!.',
+          'type' => 'error'
+        );
+  
+      }
+      Modules::run('utility/setFlash', $msg);
+      redirect('auth/users');
   }
+  
 
   public function changePass()
   {

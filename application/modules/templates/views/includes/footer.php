@@ -625,24 +625,35 @@ function saveAllChanges(draft_status) {
   }
 }
 
-function show_notification(message, msgtype) {
-  Lobibox.notify(msgtype, {
-    pauseDelayOnHover: true,
-    position: 'top right',
-    icon: 'bx bx-check-circle',
-    msg: message
+function show_notification(message, msgtype = 'info') {
+  $.notify(message, {
+    className: msgtype,
+    position: "top right",
+    autoHideDelay: 5000
   });
 }
 </script>
 
 
+<script>
+  $(document).ready(function() {
+
+    var message = "<?php echo $this->session->tempdata('msg'); ?>";
+    var msgtype = "<?php echo $this->session->tempdata('type'); ?>";
+    if (msgtype !== '') {
+  
+      show_notification(message, msgtype);
+    }
+    <?php
+    $_SESSION['type'] = '';
+    $_SESSION['msg'] = '';
+    ?>
+
+  });
+</script>
 
 
-
-
-
-
-
+  
 </body>
 
 </html>

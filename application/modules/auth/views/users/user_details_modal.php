@@ -1,5 +1,5 @@
 <!-- User Update Modal -->
-<div class="modal fade" id="user<?= $user->id ?>" tabindex="-1" role="dialog" aria-labelledby="updateUserLabel<?= $user->id ?>" aria-hidden="true">
+<div class="modal fade" id="user<?= $user->id ?>" tabindex="-1" role="dialog" aria-labelledby="user<?=$user->id?>" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
     
@@ -14,17 +14,17 @@
       <div class="modal-body">
         <div class="status text-center text-info mb-3"></div>
 
-        <input type="hidden" name="id" value="<?= $user->id ?>">
+        <input type="text" name="id" value="<?=$user->id?>">
 
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Name <span class="text-danger">*</span></label>
-            <input type="text" name="name" class="form-control" value="<?= $user->name ?>" required>
+            <input type="text" name="name" class="form-control" value="<?=$user->name ?>" required>
           </div>
 
           <div class="form-group col-md-6">
             <label>Email <span class="text-danger">*</span></label>
-            <input type="email" name="email" class="form-control" value="<?= $user->email ?>" required>
+            <input type="email" name="email" class="form-control" value="<?=$user->email ?>" required>
           </div>
 
           <div class="form-group col-md-6">

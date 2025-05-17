@@ -39,7 +39,7 @@ class Auth_mdl extends CI_Model
 			$this->db->or_like("name", "$key", "both");
 		}
 		$this->db->limit($start, $limit);
-		$this->db->join('user_groups', 'user_groups.id=user.role', 'left');
+
 		$qry = $this->db->get($this->table);
 		return $qry->result();
 	}
@@ -76,18 +76,44 @@ class Auth_mdl extends CI_Model
 		}
 	}
 
-	// update user's details
+	// Update user's details safely
 	public function updateUser($postdata)
 	{
 		$uid = $postdata['id'];
-		$this->db->where('id', $uid);
-		$query = $this->db->update($this->table, $postdata);
-		if ($query) {
-			return "User details updated";
+	
+		$name = $postdata['name'];
+		$role = $postdata['role'];
+		$organization_name = $postdata['organization_name'];
+		$memberstate_id = $postdata['memberstate_id'];
+		$priotisation_level = $postdata['priotisation_level'];
+		$uid = $postdata['id'];
+		
+		$updated = $this->db->query("
+			UPDATE user 
+			SET 
+				name = " . $this->db->escape($name) . ",
+				role = " . $this->db->escape($role) . ",
+				organization_name = " . $this->db->escape($organization_name) . ",
+				memberstate_id = " . $this->db->escape($memberstate_id) . ",
+				priotisation_level = " . $this->db->escape($priotisation_level) . "
+			WHERE id = " . $this->db->escape($uid)
+		);
+		
+	
+		if ($updated) {
+			return [
+				'status' => 'success',
+				'message' => 'User details updated successfully.'
+			];
 		} else {
-			return "No changes made";
+			return [
+				'status' => 'error',
+				'message' => 'No changes made or update failed.'
+			];
 		}
 	}
+	
+
 	// change password
 	public function updateProfile($postdata)
 	{
