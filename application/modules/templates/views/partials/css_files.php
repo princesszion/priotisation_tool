@@ -206,9 +206,9 @@
         }
 
         body {
-		transform: translateZ(0);
-		backface-visibility: hidden;
-		}
+            scroll-behavior: smooth;
+            }
+
         .mobileonly {
             display: none;
         }
@@ -322,6 +322,11 @@
             height: 48.5px;
 
         }
+        #ranking-body {
+    min-height: 200px; /* Adjust height as needed */
+    
+    }
+
     </style>
 
 

@@ -254,10 +254,33 @@ function getFilters() {
 }
 
 function loadRankingForm(filters) {
+  const tableBody = $('#ranking-body');
+
+  // Temporary placeholder during fetch
+  tableBody.html(`
+    <tr class="table-placeholder">
+      <td colspan="6" class="text-center text-muted" style="height: 150px;">
+        Loading...
+      </td>
+    </tr>
+  `);
+
   $.post('<?= base_url() ?>records/load_ranking_form', filters, function (html) {
-    $('#ranking-body').html(html);
+    // Inject new rows with fade effect
+    tableBody.fadeOut(100, function () {
+      tableBody.html(html).fadeIn(200);
+    });
+  }).fail(function () {
+    tableBody.html(`
+      <tr>
+        <td colspan="6" class="text-center text-danger" style="height: 150px;">
+          Failed to load data.
+        </td>
+      </tr>
+    `);
   });
 }
+
 
 function renderChartByThematicArea(filters) {
   fetch('<?= base_url('records/get_disease_chart_data') ?>', {
