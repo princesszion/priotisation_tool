@@ -485,7 +485,7 @@ function renderChartByProbability(filters) {
 
       Highcharts.chart('priority-probability-chart', {
         chart: { type: 'bar', backgroundColor: '#fff' },
-        title: { text: 'Priority Diseases Ranked by Probabilities' },
+        title: { text: 'Priority Diseases & Conditions Ranked by Probabilities' },
         xAxis: { type: 'category', title: null },
         yAxis: {
           max: 100,
@@ -515,7 +515,7 @@ function renderContinentalChart() {
 
       Highcharts.chart('continental-disease-chart', {
         chart: { type: 'bar', backgroundColor: '#fff' },
-        title: { text: 'Continental Prioritized Diseases by Thematic Area' },
+        title: { text: 'Continental Prioritized Diseases & Conditions by Thematic Area' },
         xAxis: { categories, title: null },
         yAxis: {
           min: 0,
