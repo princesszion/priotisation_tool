@@ -541,15 +541,19 @@ function renderDiseaseProbabilityGauge(diseaseId = null) {
     .then(res => res.json())
     .then(probability => {
       const probValue = parseFloat(probability) || 0;
-      let color = '#007749';
-      if (probValue >= 0.87) color = '#CE1126';
-      else if (probValue >= 0.7) color = '#FCD116';
+      const probPercent = probValue * 100;
+
+      let color = '#007749'; // Default: low
+      if (probPercent > 80) {
+        color = '#CE1126'; // High
+      } else if (probPercent >= 65) {
+        color = '#FCD116'; // Medium
+      }
 
       Highcharts.chart('disease-probability-gauge', {
         chart: {
           type: 'gauge',
           plotBackgroundColor: null,
-          plotBackgroundImage: null,
           plotBorderWidth: 0,
           plotShadow: false,
           height: '90%'
@@ -584,13 +588,13 @@ function renderDiseaseProbabilityGauge(diseaseId = null) {
           lineWidth: 0,
           plotBands: [{
             from: 0,
-            to: probValue * 100,
+            to: probPercent,
             color: color
           }]
         },
         series: [{
           name: 'Probability',
-          data: [parseFloat((probValue * 100).toFixed(1))],
+          data: [parseFloat(probPercent.toFixed(1))],
           tooltip: { valueSuffix: ' %' },
           dataLabels: {
             format: '{y} %',
@@ -613,6 +617,7 @@ function renderDiseaseProbabilityGauge(diseaseId = null) {
       });
     });
 }
+
 
 function saveAllChanges(draft_status) {
   let changes = [];
