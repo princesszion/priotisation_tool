@@ -321,9 +321,18 @@ function renderChartByProbability(filters) {
     .then(res => res.json())
     .then(data => {
       const seriesData = data.map(item => {
-        const prob = parseFloat(item.probability);
-        const color = prob > 0.87 ? '#CE1126' : prob >= 0.7 ? '#FCD116' : '#007749';
-        return { name: item.disease_name, y: prob * 100, color };
+        const probPercent = parseFloat(item.probability) * 100;
+        let color;
+
+        if (probPercent > 80) {
+          color = '#CE1126'; // High - Red
+        } else if (probPercent >= 65) {
+          color = '#FCD116'; // Medium - Yellow
+        } else {
+          color = '#007749'; // Low - Green
+        }
+
+        return { name: item.disease_name, y: probPercent, color };
       });
 
       Highcharts.chart('priority-probability-chart', {
@@ -345,6 +354,7 @@ function renderChartByProbability(filters) {
       });
     });
 }
+
 
 function renderContinentalChart() {
   fetch('<?= base_url('records/get_continental_disease_chart_data') ?>')
