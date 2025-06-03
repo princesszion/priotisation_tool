@@ -1,22 +1,3 @@
-This is the portal to manage public dashboards. Dashboards are built using Kibana and rendered as frames depending on the outbreaks they are attached to
-{
-  "properties": {
-    "Confirmed Mpox Cases": {
-      "type": "long"
-    },
-    "Mpox Deaths": {
-      "type": "long"
-    },
-    "Suspected Mpox Cases": {
-      "type": "long"
-    },
-    "last 4 weeks": {
-      "type": "keyword"
-    },
-    "organisationunitname": {
-      "type": "keyword"
-    }
-  }
-}
+The Africa CDC Disease Prioritisation Tool is a decision-support platform designed to help countries identify and rank priority diseases based on key public health criteria. It enables evidence-based decision-making by assessing factors such as disease burden, epidemic potential, economic impact, and health system capacity.
 
-       
+The tool supports national and regional health authorities in focusing resources on the most critical diseases, strengthening preparedness, and guiding policy and investment for surveillance, response, and control efforts.
